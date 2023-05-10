@@ -1,0 +1,63 @@
+.cf-button-white {
+    font-weight: 600;
+    padding: 0.7rem 1.7rem;
+    background-color: white;
+    border: 1px solid transparent;
+    box-shadow: rgba(0, 0, 0, 0.25) 1px 2px 2px;
+    border-radius: 5px;
+    color: rgb(245, 124, 0);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.cf-button-white:hover {
+    cursor: pointer;
+    background-color: rgb(255, 250, 242);
+    border-color: rgb(245, 124, 0);
+}
+
+.panel-input {
+    width: 100%;
+    padding: 1rem 0.75rem;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(229, 229, 229);
+    border-radius: 4px;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.panel-input:focus {
+    background-color: rgb(255, 248, 224);
+    border-color: rgb(245, 124, 0);
+    outline: none;
+}
+
+.panel-input-label {
+    position: absolute;
+    top: 1rem;
+    left: 0.5rem;
+    padding: 0 0.5rem;
+    font-size: 14px;
+    transition: top 0.3s, font-size 0.3s;
+}
+
+.panel-input:focus+.panel-input-label {
+    font-size: 11px;
+    top: 0.5rem;
+    transition: top 0.3s, font-size 0.3s;
+}
+
+.cf-button-orange {
+    padding: 1rem 0;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: white;
+    background-color: rgb(245, 124, 0);
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.cf-button-orange:hover {
+    cursor: pointer;
+    background-color: rgb(245, 94, 0);
+    ;
+}
