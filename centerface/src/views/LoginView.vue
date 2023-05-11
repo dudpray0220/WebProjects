@@ -20,17 +20,17 @@
                     <button class="cf-button-orange">로그인</button>
                     <div class="contained-checkbox-divs">
                         <div class="checkbox-div">
-                            <label for="remember-id">아이디 저장</label>
                             <input class="panel-checkbox" type="checkbox" name="" id="remember-id">
+                            <label for="remember-id">아이디 저장</label>
                         </div>
                         <div class="checkbox-div">
-                            <label for="remember-pw">비밀번호 저장</label>
                             <input class="panel-checkbox" type="checkbox" name="" id="remember-pw">
+                            <label for="remember-pw">비밀번호 저장</label>
                         </div>
                     </div>
                     <hr>
-                    <button class="cf-button-white login-panel-btn">비밀번호 찾기</button>
-                    <button class="cf-button-white login-panel-btn">회원가입</button>
+                    <button class="cf-button-white cf-button-black">비밀번호 찾기</button>
+                    <button class="cf-button-white cf-button-black">회원가입</button>
                 </form>
             </div>
         </div>
@@ -57,7 +57,7 @@ export default {
     max-width: 100%;
     height: 100%;
     background: rgb(250, 250, 250);
-    padding: 5rem 0;
+    padding: 5rem 0 6rem;
 }
 
 .login-panel {
@@ -99,43 +99,10 @@ export default {
     background-color: white;
 }
 
-.panel-input-div {
-    position: relative;
-}
-
-.login-panel-btn {
-    color: black;
-    box-shadow: none;
-    border: 1px solid rgb(229, 229, 229);
-    padding: 1rem 1.7rem;
-    font-size: 1rem;
-}
-
 .contained-checkbox-divs {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.checkbox-div {
-    display: flex;
-    align-items: center;
-    margin: 0 1.5rem;
-    column-gap: 0.5rem;
-}
-
-.panel-checkbox {
-    /* position: relative; */
-    width: 24px;
-    height: 24px;
-    border: 1px solid rgb(229, 229, 229);
-    cursor: pointer;
-}
-
-.checkbox-div label {
-    font-size: 0.9rem;
-    color: rgb(167, 164, 164);
-    ;
 }
 
 .contained-checkbox-divs+hr {

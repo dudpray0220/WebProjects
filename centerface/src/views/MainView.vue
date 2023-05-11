@@ -138,4 +138,9 @@ export default {
     font-size: 1rem;
     font-weight: 300;
 }
+
+.main-section-top {
+    background-color: rgb(232, 241, 255);
+    ;
+}
 </style>

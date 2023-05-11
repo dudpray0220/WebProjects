@@ -15,6 +15,18 @@
     border-color: rgb(245, 124, 0);
 }
 
+.cf-button-black {
+    color: black;
+    box-shadow: none;
+    border: 1px solid rgb(229, 229, 229);
+    padding: 1rem 1.7rem;
+    font-size: 1rem;
+}
+
+.panel-input-div {
+    position: relative;
+}
+
 .panel-input {
     width: 100%;
     padding: 1rem 0.75rem;
@@ -38,12 +50,20 @@
     padding: 0 0.5rem;
     font-size: 14px;
     transition: top 0.3s, font-size 0.3s;
+    font-weight: 200;
 }
 
 .panel-input:focus+.panel-input-label {
-    font-size: 11px;
+    font-size: 12px;
     top: 0.5rem;
     transition: top 0.3s, font-size 0.3s;
+}
+
+.input-alert-label {
+    color: red;
+    font-weight: 400;
+    font-size: 12px;
+    /* display: none; */
 }
 
 .cf-button-orange {
@@ -59,5 +79,30 @@
 .cf-button-orange:hover {
     cursor: pointer;
     background-color: rgb(245, 94, 0);
+    ;
+}
+
+.checkbox-div {
+    display: flex;
+    align-items: center;
+    margin: 0 1.5rem;
+    column-gap: 0.5rem;
+}
+
+.panel-checkbox {
+    /* position: relative; */
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgb(229, 229, 229);
+    cursor: pointer;
+}
+
+.panel-checkbox:checked {
+    background-color: rgb(245, 124, 0);
+}
+
+.checkbox-div label {
+    font-size: 0.9rem;
+    color: rgb(167, 164, 164);
     ;
 }

@@ -22,5 +22,7 @@ export default {
 
 html {
   font-family: 'Noto Sans KR', sans-serif;
+  height: 100%;
+  margin: 0;
 }
 </style>
