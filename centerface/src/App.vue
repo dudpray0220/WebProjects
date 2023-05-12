@@ -1,18 +1,27 @@
 <template>
-  <header-component></header-component>
+  <header-component v-if="headerToggle == 0"></header-component>
+  <header-component-after-login v-if="headerToggle == 1"></header-component-after-login>
+
   <router-view></router-view>
   <footer-component></footer-component>
 </template>
 
 <script>
 import HeaderComponent from './components/HeaderComponent.vue';
+import HeaderComponentAfterLogin from './components/HeaderComponentAfterLogin.vue';
 import FooterComponent from './components/FooterComponent.vue';
 
 export default {
   name: 'App',
   components: {
     HeaderComponent: HeaderComponent,
-    FooterComponent: FooterComponent
+    FooterComponent: FooterComponent,
+    HeaderComponentAfterLogin: HeaderComponentAfterLogin
+  },
+  data() {
+    return {
+      headerToggle: 0
+    }
   }
 }
 </script>

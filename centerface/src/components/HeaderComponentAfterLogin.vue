@@ -1,0 +1,91 @@
+<template>
+    <!-- Header -->
+    <header>
+        <div class="header-div">
+            <h1 class="header-title-logo">
+                <router-link to="/">
+                    <img src="../assets/logo.png" alt="Centerface Logo">
+                </router-link>
+            </h1>
+            <nav class="nav-bar">
+                <ul class="nav-items">
+                    <li class="nav-item">
+                        <router-link to="/">홈</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/reservation">회의예약</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/list">회의목록</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/faq">자주 묻는 질문</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/login">로그아웃</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/mypage/modify" id="profile-wrapper">
+                            <img class="profile-image" src="../assets/profile.png" alt="userProfile">
+                            <span>yhbae</span>
+                        </router-link>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+</template>
+
+<script>
+export default {
+    name: 'HeaderComponent'
+}
+</script>
+
+<style>
+.header-div {
+    max-width: 1400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+}
+
+.header-title-logo {
+    width: 12rem;
+}
+
+.header-title-logo img {
+    width: 100%;
+}
+
+.nav-items {
+    display: flex;
+    column-gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: black;
+}
+
+.profile-image {
+    width: 30px;
+    height: 30px;
+}
+
+#profile-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#profile-wrapper span {
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+</style>

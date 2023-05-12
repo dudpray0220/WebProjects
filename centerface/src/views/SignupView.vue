@@ -44,7 +44,7 @@
                             <input class="panel-checkbox" type="checkbox" name="" id="agree-term">
                             <label class="signup-lable" for="agree-term">이용약관 동의</label>
                         </div>
-                        <button class="see-info-button">내용 보기</button>
+                        <button type="button" class="see-info-button" @click="seeAgreeTerm">내용 보기</button>
                     </div>
 
                     <div class="signup-checkbox-wrapper">
@@ -52,7 +52,7 @@
                             <input class="panel-checkbox" type="checkbox" name="" id="agree-info">
                             <label class="signup-lable" for="agree-info">개인정보 수집 및 이용에 대한 동의</label>
                         </div>
-                        <button class="see-info-button">내용 보기</button>
+                        <button type="button" class="see-info-button" @click="seeAgreeInfo">내용 보기</button>
                     </div>
 
 
@@ -65,7 +65,8 @@
                 </form>
 
                 <!-- 약관 내용 보기 -->
-                <agree-term></agree-term>
+                <agree-term v-if="agreeTermToggle" @closeModal="closeAgreeTerm"></agree-term>
+                <agree-info v-if="agreeInfoToggle" @closeInfoModal="closeAgreeInfo"></agree-info>
             </div>
         </div>
     </main>
@@ -73,11 +74,37 @@
 
 <script>
 import AgreeTerm from '../components/AgreeTerm.vue'
+import AgreeInfo from '../components/AgreeInfo.vue'
 export default {
     name: 'SignupView',
     components: {
-        AgreeTerm: AgreeTerm
-    }
+        AgreeTerm: AgreeTerm,
+        AgreeInfo
+    },
+    data() {
+        return {
+            agreeTermToggle: false,
+            agreeInfoToggle: false,
+        }
+    },
+    methods: {
+        seeAgreeTerm() {
+            this.agreeTermToggle = true;
+            console.log(this.agreeTermToggle);
+        },
+        closeAgreeTerm() {
+            this.agreeTermToggle = false;
+            console.log(this.agreeTermToggle);
+        },
+        seeAgreeInfo() {
+            this.agreeInfoToggle = true;
+            console.log(this.agreeInfoToggle);
+        },
+        closeAgreeInfo() {
+            this.agreeInfoToggle = false;
+            console.log(this.agreeInfoToggle);
+        }
+    },
 }
 </script>
 

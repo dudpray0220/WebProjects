@@ -4,7 +4,7 @@
             <h3>이용약관 동의</h3>
             <p class="term-contents">{{ termsOfUse }}</p>
             <div class="term-button-div">
-                <button class="cf-button-black cf-button-white">닫기</button>
+                <button class="cf-button-black cf-button-white" @click="$emit('closeModal')">닫기</button>
             </div>
         </div>
     </div>
@@ -30,6 +30,8 @@ export default {
                 console.log(error);
             });
     },
+    props: {
+    }
 };
 </script>
 
@@ -48,7 +50,7 @@ export default {
     position: fixed;
     top: 50%;
     left: 50%;
-    translate: -50% -50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     max-width: 550px;
     display: flex;
@@ -73,7 +75,10 @@ export default {
     padding: 1rem;
     height: 550px;
     background-color: rgb(248, 249, 251);
-    overflow: scroll;
+    /* 세로 스크롤바는 표시 */
+    overflow-y: scroll;
+    /* 가로 스크롤바는 숨김 */
+    overflow-x: hidden;
     margin-bottom: 1rem;
     font-size: 1rem;
     line-height: 1.5rem;

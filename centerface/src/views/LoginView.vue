@@ -28,8 +28,7 @@
                             <label for="remember-pw">비밀번호 저장</label>
                         </div>
                     </div>
-                    <hr>
-                    <button class="cf-button-white cf-button-black">비밀번호 찾기</button>
+                    <button id="find-pw-btn" class="cf-button-white cf-button-black">비밀번호 찾기</button>
                     <button class="cf-button-white cf-button-black">회원가입</button>
                 </form>
             </div>
@@ -101,11 +100,23 @@ export default {
 
 .contained-checkbox-divs {
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
 }
 
-.contained-checkbox-divs+hr {
+.contained-checkbox-divs::after {
+    position: absolute;
+    display: block;
+    content: "";
+    top: 4rem;
+    left: 0px;
+    right: 0px;
     width: 100%;
+    border-bottom: 1px solid rgb(229, 229, 229);
+}
+
+#find-pw-btn {
+    margin-top: 3.5rem;
 }
 </style>
