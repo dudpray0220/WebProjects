@@ -10,12 +10,12 @@
                 <!-- 우측 form -->
                 <form action="" class="login-panel-form">
                     <div class="panel-input-div">
-                        <input class="panel-input" type="text" id="user-id">
-                        <label class="panel-input-label" for="user-id">아이디</label>
+                        <input class="panel-input" type="text" id="user-id" v-model="userId">
+                        <label class="panel-input-label" for="user-id" :class="{ inputActive: userId }">아이디</label>
                     </div>
                     <div class="panel-input-div">
-                        <input class="panel-input" type="password" id="user-pw">
-                        <label class="panel-input-label" for="user-pw">비밀번호</label>
+                        <input class="panel-input" type="password" id="user-pw" v-model="userPw">
+                        <label class="panel-input-label" for="user-pw" :class="{ inputActive: userPw }">비밀번호</label>
                     </div>
                     <button class="cf-button-orange">로그인</button>
                     <div class="contained-checkbox-divs">
@@ -28,9 +28,9 @@
                             <label for="remember-pw">비밀번호 저장</label>
                         </div>
                     </div>
-                    <button id="find-pw-btn" class="cf-button-white cf-button-black" @click="navigateToRoute">비밀번호
+                    <button id="find-pw-btn" class="cf-button-white cf-button-black" @click="navigateToRoutePw">비밀번호
                         찾기</button>
-                    <button class="cf-button-white cf-button-black">회원가입</button>
+                    <button class="cf-button-white cf-button-black" @click="navigateToRouteSignup">회원가입</button>
                 </form>
             </div>
         </div>
@@ -40,11 +40,20 @@
 <script>
 export default {
     name: 'LoginView',
+    data() {
+        return {
+            userId: '',
+            userPw: '',
+        }
+    },
     components: {
     },
     methods: {
-        navigateToRoute() {
+        navigateToRoutePw() {
             this.$router.push('/find/password');
+        },
+        navigateToRouteSignup() {
+            this.$router.push('/signup');
         }
     }
 }

@@ -7,30 +7,36 @@
                     <p class="mypage-info">마이페이지에서는 연락처 등 수정이 가능합니다.</p>
                 </div>
                 <form action="" class="signup-forms mypage-forms">
-                    <div class="panel-input-div signup-input-div">
-                        <input class="panel-input" type="text" name="" id="mypage-name">
-                        <label class="panel-input-label" for="mypage-name">성함</label>
+                    <div class="panel-input-div">
+                        <input class="panel-input" disabled type="text" name="" id="mypage-name" v-model="userName">
+                        <label class="panel-input-label" for="mypage-name" :class="{ inputActive: userName }">성함</label>
                     </div>
-                    <div class="panel-input-div signup-input-div">
-                        <input class="panel-input" type="email" name="" id="mypage-email">
-                        <label class="panel-input-label" for="mypage-email">이메일 <span
+                    <div class="panel-input-div">
+                        <input class="panel-input" type="email" name="" id="mypage-email" v-model="userEmail">
+                        <label class="panel-input-label" for="mypage-email" :class="{ inputActive: userEmail }">이메일 <span
                                 class="input-alert-label">(필수)</span></label>
                     </div>
-                    <div class="panel-input-div signup-input-div">
-                        <input class="panel-input" type="password" name="" id="mypage-pw">
-                        <label class="panel-input-label" for="mypage-pw">비밀번호 <span
+                    <div class="panel-input-div">
+                        <input class="panel-input" type="password" name="" id="mypage-pw" v-model="userPw">
+                        <label class="panel-input-label" for="mypage-pw" :class="{ inputActive: userPw }">비밀번호 <span
                                 class="input-alert-label">(필수)</span></label>
                     </div>
-                    <div class="panel-input-div signup-input-div">
-                        <input class="panel-input" type="password" name="" id="mypage-new-pw">
-                        <label class="panel-input-label" for="mypage-new-pw">새 비밀번호</label>
+                    <div class="panel-input-div">
+                        <input class="panel-input" type="password" name="" id="mypage-new-pw" v-model="userNewPw">
+                        <label class="panel-input-label" for="mypage-new-pw" :class="{ inputActive: userNewPw }">새
+                            비밀번호</label>
                     </div>
-                    <div class="panel-input-div signup-input-div">
-                        <input class="panel-input" type="password" name="" id="mypage-new-pw-confirm">
-                        <label class="panel-input-label" for="mypage-new-pw-confirm">새 비밀번호 확인</label>
+                    <div class="panel-input-div">
+                        <input class="panel-input" type="password" name="" id="mypage-new-pw-confirm"
+                            v-model="userNewPwConfirm">
+                        <label class="panel-input-label" for="mypage-new-pw-confirm"
+                            :class="{ inputActive: userNewPwConfirm }">새
+                            비밀번호
+                            확인</label>
                     </div>
                     <button class="cf-button-orange cf-button-black">회원정보 수정</button>
                     <button class="cf-button-white cf-button-black">취소</button>
+                    <router-link to="/mypage/leave" class="leave-centerface">회원 탈퇴 신청</router-link>
                 </form>
             </div>
         </div>
@@ -39,7 +45,16 @@
 
 <script>
 export default {
-    name: "MypageView"
+    name: "MypageView",
+    data() {
+        return {
+            userName: '배영현',
+            userEmail: '',
+            userPw: '',
+            userNewPw: '',
+            userNewPwConfirm: '',
+        }
+    }
 }
 </script>
 
@@ -74,7 +89,14 @@ export default {
     text-align: center;
 }
 
-.mypage-forms div {
-    margin-bottom: 0.5rem;
+.leave-centerface {
+    color: rgb(121, 121, 121);
+    text-align: right;
+    font-size: 0.8rem;
+    text-decoration: underline;
+}
+
+.mypage-forms>.panel-input-div {
+    margin-bottom: 1.2rem;
 }
 </style>

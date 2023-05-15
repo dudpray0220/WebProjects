@@ -9,6 +9,7 @@ import ReservationView from "../views/ReservationView.vue";
 import MypageLeaveView from "../views/MypageLeaveView";
 import FindPasswordView from "../views/FindPasswordView";
 
+// ... 라우트 설정
 const routes = [
   {
     path: "/",
@@ -55,6 +56,9 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior() {
+    return { top: 0 };
+  },
 });
 
 export default router;

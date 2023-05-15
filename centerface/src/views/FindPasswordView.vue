@@ -7,7 +7,7 @@
                     <p>비밀번호 재설정을 위해 가입시 등록한 이메일 주소를 입력해 주세요.</p>
                 </div>
                 <form class="find-form" action="">
-                    <div class="panel-input-div">
+                    <div class="panel-input-div find-email-div">
                         <input class="panel-input" type="email" id="find-email">
                         <label class="panel-input-label" for="find-email">이메일</label>
                     </div>
@@ -66,7 +66,7 @@ export default {
     width: 75%;
 }
 
-.panel-input-div {
+.find-email-div {
     margin-bottom: 2.5rem;
 }
 

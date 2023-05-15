@@ -52,7 +52,7 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    max-width: 550px;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -73,14 +73,14 @@ export default {
 
 .term-contents {
     padding: 1rem;
-    height: 550px;
+    height: 450px;
     background-color: rgb(248, 249, 251);
     /* 세로 스크롤바는 표시 */
     overflow-y: scroll;
     /* 가로 스크롤바는 숨김 */
     overflow-x: hidden;
     margin-bottom: 1rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
     line-height: 1.5rem;
     white-space: pre-wrap;
 }

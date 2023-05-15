@@ -9,25 +9,26 @@
                 </div>
                 <form action="" class="reservation-form">
                     <div class="panel-input-div">
-                        <input class="panel-input" type="text" name="" id="reservation-name">
-                        <label class="panel-input-label" for="reservation-name">회의명 <span
-                                class="input-alert-label">(필수)</span></label>
+                        <input class="panel-input" type="text" name="" id="reservation-name" v-model="roomTitle">
+                        <label class="panel-input-label" for="reservation-name" :class="{ inputActive: roomTitle }">회의명
+                            <span class="input-alert-label">(필수)</span></label>
                     </div>
                     <div class="panel-input-div">
-                        <input class="panel-input" type="email" name="" id="reservation-description">
-                        <label class="panel-input-label" for="reservation-description">설명을 입력하세요. <span
+                        <input class="panel-input" type="email" name="" id="reservation-description" v-model="roomContents">
+                        <label class="panel-input-label" for="reservation-description"
+                            :class="{ inputActive: roomContents }">설명을 입력하세요. <span
                                 class="input-alert-label">(필수)</span></label>
                     </div>
                     <ul class="reservation-set-ul">
                         <li class="reservation-set-lis">
                             <p>시작 시간</p>
-                            <input class="reservation-input" type="date" v-model="currentDate">
-                            <input class="reservation-input" type="time" v-model="currentTime">
+                            <input class="reservation-input" type="date" v-model="startDate">
+                            <input class="reservation-input" type="time" v-model="startTime">
                         </li>
                         <li class="reservation-set-lis">
                             <p>종료 시간</p>
-                            <input class="reservation-input" type="date" v-model="currentDate">
-                            <input class="reservation-input" type="time" v-model="currentTime">
+                            <input class="reservation-input" type="date" v-model="endDate">
+                            <input class="reservation-input" type="time" v-model="endTime">
                         </li>
                     </ul>
                     <button type="button" class="detail-set-button" @click="toggleDetail">상세 설정</button>
@@ -89,7 +90,7 @@
                         </ul>
                     </div>
                     <button class="cf-button-orange reservation-button">예약하기</button>
-                    <button class="cf-button-white cf-button-black">취소</button>
+                    <button class="cf-button-white cf-button-black" @click="navigateToRouter">취소</button>
                 </form>
             </div>
         </div>
@@ -101,9 +102,13 @@ export default {
     name: "ReservationView",
     data() {
         return {
-            currentDate: '',
-            currentTime: '',
+            startDate: '',
+            startTime: '',
+            endDate: '',
+            endTime: '',
             detailToggleValue: true,
+            roomTitle: '',
+            roomContents: '',
         }
     },
     created() {
@@ -112,16 +117,21 @@ export default {
         const year = today.getFullYear();
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const date = String(today.getDate()).padStart(2, '0'); // 한 자리수의 경우 앞에 0을 붙임
-        this.currentDate = `${year}-${month}-${date}`;
+        this.startDate = `${year}-${month}-${date}`;
+        this.endDate = `${year}-${month}-${date}`;
 
         // 현재 시간을 HH:MM 형식으로 가져오기
         const hours = String(today.getHours()).padStart(2, '0')
         const minutes = String(today.getMinutes()).padStart(2, '0')
-        this.currentTime = `${hours}:${minutes}`;
+        this.startTime = `${hours}:${minutes}`;
+        this.endTime = `${hours}:${minutes}`;
     },
     methods: {
         toggleDetail() {
             this.detailToggleValue = !this.detailToggleValue;
+        },
+        navigateToRouter() {
+            this.$router.push('/main')
         }
     }
 }

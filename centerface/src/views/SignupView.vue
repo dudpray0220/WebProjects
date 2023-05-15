@@ -8,37 +8,38 @@
                 </div>
                 <form action="" class="signup-forms">
                     <div class="panel-input-div signup-input-div">
-                        <input class="panel-input" type="text" name="" id="signup-name">
-                        <label class="panel-input-label" for="signup-name">성함 <span
+                        <input class="panel-input" type="text" name="" id="signup-name" v-model="userName">
+                        <label class="panel-input-label" for="signup-name" :class="{ inputActive: userName }">성함 <span
                                 class="input-alert-label">(필수)</span></label>
                     </div>
                     <div class="panel-input-div signup-input-div">
-                        <input class="panel-input" type="text" name="" id="signup-id">
-                        <label class="panel-input-label" for="signup-id">아이디 <span
+                        <input class="panel-input" type="text" name="" id="signup-id" v-model="userId">
+                        <label class="panel-input-label" for="signup-id" :class="{ inputActive: userId }">아이디 <span
                                 class="input-alert-label">(필수)</span></label>
                     </div>
                     <div class="panel-input-div signup-input-div">
-                        <input class="panel-input" type="text" name="" id="signup-email">
-                        <label class="panel-input-label" for="signup-email">이메일 <span
+                        <input class="panel-input" type="text" name="" id="signup-email" v-model="userEmail">
+                        <label class="panel-input-label" for="signup-email" :class="{ inputActive: userEmail }">이메일 <span
                                 class="input-alert-label">(필수)</span></label>
                     </div>
                     <div class="panel-input-div signup-input-div">
-                        <input class="panel-input" type="text" name="" id="signup-pw">
-                        <label class="panel-input-label" for="signup-pw">비밀번호 <span
+                        <input class="panel-input" type="text" name="" id="signup-pw" v-model="userPw">
+                        <label class="panel-input-label" for="signup-pw" :class="{ inputActive: userPw }">비밀번호 <span
                                 class="input-alert-label">(필수)</span></label>
                     </div>
                     <div class="panel-input-div signup-input-div">
-                        <input class="panel-input" type="text" name="" id="signup-confirm-pw">
-                        <label class="panel-input-label" for="signup-confirm-pw">비밀번호 확인 <span
-                                class="input-alert-label">(필수)</span></label>
+                        <input class="panel-input" type="text" name="" id="signup-confirm-pw" v-model="userPwConfirm">
+                        <label class="panel-input-label" for="signup-confirm-pw"
+                            :class="{ inputActive: userPwConfirm }">비밀번호 확인
+                            <span class="input-alert-label">(필수)</span></label>
                     </div>
                     <div class="panel-input-div signup-input-div">
-                        <input class="panel-input" type="text" name="" id="signup-coupon">
-                        <label class="panel-input-label" for="signup-coupon">인증 번호 <span
-                                class="input-alert-label">(필수)</span></label>
+                        <input class="panel-input" type="text" name="" id="signup-coupon" v-model="userCoupon">
+                        <label class="panel-input-label" for="signup-coupon" :class="{ inputActive: userCoupon }">인증 번호
+                            <span class="input-alert-label">(필수)</span></label>
                     </div>
                     <button class="cf-button-orange cf-button-black">가입하기</button>
-                    <button class="cf-button-white cf-button-black">취소</button>
+                    <button class="cf-button-white cf-button-black" @click="navigateToRoute">취소</button>
                     <div class="signup-checkbox-wrapper">
                         <div class="signup-checkbox-div">
                             <input class="panel-checkbox" type="checkbox" name="" id="agree-term">
@@ -83,6 +84,13 @@ export default {
     },
     data() {
         return {
+            userName: '',
+            userId: '',
+            userEmail: '',
+            userPw: '',
+            userPwConfirm: '',
+            userCoupon: '',
+
             agreeTermToggle: false,
             agreeInfoToggle: false,
         }
@@ -103,6 +111,9 @@ export default {
         closeAgreeInfo() {
             this.agreeInfoToggle = false;
             console.log(this.agreeInfoToggle);
+        },
+        navigateToRoute() {
+            this.$router.push('/login')
         }
     },
 }
@@ -149,9 +160,9 @@ export default {
     width: 70%;
 }
 
-/* .signup-forms .signup-input-div {
+.signup-forms>.signup-input-div {
     padding-bottom: 1.5rem;
-} */
+}
 
 .signup-forms button {
     margin-bottom: 1rem;

@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      headerToggle: 0
+      headerToggle: 1
     }
   }
 }

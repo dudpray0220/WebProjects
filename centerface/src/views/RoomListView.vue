@@ -35,8 +35,8 @@
                             <td class="list-panel-td">
                                 <div class="room-control-button-div">
                                     <button class="room-control-button">시작</button>
-                                    <button class="room-control-button">초대</button>
-                                    <button class="room-control-button">편집</button>
+                                    <button class="room-control-button" @click="toggleInvite">초대</button>
+                                    <button class="room-control-button" @click="editRoom">편집</button>
                                     <button class="room-control-button">삭제</button>
                                 </div>
                             </td>
@@ -56,6 +56,20 @@
                     </tbody>
                 </table>
                 <button class="new-room-button" @click="navigateToRoute">새 회의</button>
+                <div class="invite-bg" v-if="inviteToggleValue">
+                    <form class="invite-panel">
+                        <h2>회의 초대</h2>
+                        <div class="panel-input-div invite-panel-div">
+                            <input class="panel-input" type="text" id="invite-user" v-model="inviteUserName">
+                            <label class="panel-input-label" for="invite-user" :class="{ inputActive: inviteUserName }">초대할
+                                아이디 <span class="input-alert-label">(필수)</span></label>
+                        </div>
+                        <div class="invite-button-div">
+                            <button class="cf-button-orange">초대</button>
+                            <button class="cf-button-white cf-button-black" type="button" @click="toggleInvite">취소</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </main>
@@ -71,6 +85,8 @@ export default {
             roomList: RoomList,
             inviteRoomList: InviteRoomList,
             topButtonValue: true,
+            inviteUserName: '',
+            inviteToggleValue: false,
         }
     },
     methods: {
@@ -86,7 +102,15 @@ export default {
         },
         navigateToRoute() {
             this.$router.push('/reservation');
+        },
+        editRoom() {
+            alert('아직 준비중인 기능입니다');
+        },
+        toggleInvite() {
+            this.inviteToggleValue = !this.inviteToggleValue
+            this.inviteUserName = '';
         }
+
     },
     computed: {
     },
@@ -200,5 +224,54 @@ export default {
     background-color: rgb(245, 124, 0);
     color: rgb(255, 255, 255);
     cursor: pointer;
+}
+
+.invite-bg {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.invite-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+    row-gap: 1rem;
+    border-radius: 12px;
+    background-color: white;
+    padding: 1.5rem 2rem;
+}
+
+.invite-panel h2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.invite-panel-div {
+    width: 100%;
+}
+
+.invite-button-div {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 1rem;
+    width: 100%;
+}
+
+.invite-button-div button {
+    flex: 1;
+    padding: 0.7rem;
 }
 </style>

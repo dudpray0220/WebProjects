@@ -34,6 +34,11 @@ export default {
 </script>
 
 <style>
+header {
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 4px;
+}
+
 .header-div {
     max-width: 1400px;
     display: flex;
@@ -59,5 +64,9 @@ export default {
 .nav-item a {
     text-decoration: none;
     color: black;
+}
+
+.nav-item p {
+    cursor: pointer;
 }
 </style>

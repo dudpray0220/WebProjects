@@ -1,14 +1,14 @@
 <template>
     <!-- Header -->
     <header>
-        <div class="header-div">
+        <div class="header-div-login">
             <h1 class="header-title-logo">
                 <router-link to="/">
                     <img src="../assets/logo.png" alt="Centerface Logo">
                 </router-link>
             </h1>
             <nav class="nav-bar">
-                <ul class="nav-items">
+                <ul class="nav-items-login">
                     <li class="nav-item">
                         <router-link to="/">홈</router-link>
                     </li>
@@ -22,7 +22,8 @@
                         <router-link to="/faq">자주 묻는 질문</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/login">로그아웃</router-link>
+                        <!-- <router-link to="/login" @click="checkLogout">로그아웃</router-link> -->
+                        <p @click="checkLogout">로그아웃</p>
                     </li>
                     <li class="nav-item">
                         <router-link to="/mypage/modify" id="profile-wrapper">
@@ -38,12 +39,21 @@
 
 <script>
 export default {
-    name: 'HeaderComponent'
+    name: 'HeaderComponent',
+    methods: {
+        checkLogout() {
+            let logoutValue = confirm("정말 로그아웃 하시겠습니까?");
+            // console.log(logoutValue)
+            if (logoutValue) {
+                this.$router.push('/login');
+            }
+        }
+    }
 }
 </script>
 
 <style>
-.header-div {
+.header-div-login {
     max-width: 1400px;
     display: flex;
     justify-content: space-between;
@@ -52,24 +62,11 @@ export default {
     padding: 1rem 1.5rem;
 }
 
-.header-title-logo {
-    width: 12rem;
-}
-
-.header-title-logo img {
-    width: 100%;
-}
-
-.nav-items {
+.nav-items-login {
     display: flex;
     column-gap: 1.5rem;
     justify-content: center;
     align-items: center;
-}
-
-.nav-item a {
-    text-decoration: none;
-    color: black;
 }
 
 .profile-image {
