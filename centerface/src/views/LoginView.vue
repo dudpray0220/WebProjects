@@ -28,7 +28,8 @@
                             <label for="remember-pw">비밀번호 저장</label>
                         </div>
                     </div>
-                    <button id="find-pw-btn" class="cf-button-white cf-button-black">비밀번호 찾기</button>
+                    <button id="find-pw-btn" class="cf-button-white cf-button-black" @click="navigateToRoute">비밀번호
+                        찾기</button>
                     <button class="cf-button-white cf-button-black">회원가입</button>
                 </form>
             </div>
@@ -40,17 +41,16 @@
 export default {
     name: 'LoginView',
     components: {
+    },
+    methods: {
+        navigateToRoute() {
+            this.$router.push('/find/password');
+        }
     }
 }
 </script>
 
 <style>
-@import url('../css/commonStyle.css');
-
-/* .login-main {
-    flex: 1 1 0%;
-} */
-
 .login-entire-div {
     width: 100%;
     max-width: 100%;

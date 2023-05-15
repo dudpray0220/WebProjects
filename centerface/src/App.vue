@@ -1,9 +1,11 @@
 <template>
-  <header-component v-if="headerToggle == 0"></header-component>
-  <header-component-after-login v-if="headerToggle == 1"></header-component-after-login>
+  <div class="app-wrapper">
+    <header-component v-if="headerToggle == 0"></header-component>
+    <header-component-after-login v-if="headerToggle == 1"></header-component-after-login>
 
-  <router-view></router-view>
-  <footer-component></footer-component>
+    <router-view></router-view>
+    <footer-component></footer-component>
+  </div>
 </template>
 
 <script>
@@ -20,7 +22,7 @@ export default {
   },
   data() {
     return {
-      headerToggle: 1
+      headerToggle: 0
     }
   }
 }
@@ -33,5 +35,11 @@ html {
   font-family: 'Noto Sans KR', sans-serif;
   height: 100%;
   margin: 0;
+}
+
+.app-wrapper {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
 }
 </style>

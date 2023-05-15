@@ -149,9 +149,9 @@ export default {
     width: 70%;
 }
 
-.signup-forms .signup-input-div {
+/* .signup-forms .signup-input-div {
     padding-bottom: 1.5rem;
-}
+} */
 
 .signup-forms button {
     margin-bottom: 1rem;

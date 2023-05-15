@@ -7,6 +7,7 @@ import MypageView from "../views/MypageView.vue";
 import RoomListView from "../views/RoomListView.vue";
 import ReservationView from "../views/ReservationView.vue";
 import MypageLeaveView from "../views/MypageLeaveView";
+import FindPasswordView from "../views/FindPasswordView";
 
 const routes = [
   {
@@ -44,6 +45,10 @@ const routes = [
   {
     path: "/mypage/leave",
     component: MypageLeaveView,
+  },
+  {
+    path: "/find/password",
+    component: FindPasswordView,
   },
 ];
 

@@ -31,6 +31,12 @@ export default {
 <style>
 footer {
     background-color: #F0F8FF;
+    /* 고정 위치 */
+    /* position: fixed; */
+    /* 푸터를 하단에 고정 */
+    /* bottom: 0; */
+    /* 푸터의 너비를 전체 너비로 설정 */
+    /* width: 100%; */
 }
 
 .footer-div {
