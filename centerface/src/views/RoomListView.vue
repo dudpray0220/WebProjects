@@ -6,9 +6,10 @@
                     <h2>회의 목록</h2>
                 </div>
                 <div class="list-panel-button-div">
-                    <button class="list-panel-button" :class="{ active: topButtonValue }" @click="topButton1Toggle">내가 만든
+                    <button class="list-panel-button" :class="{ active: topButtonValue }" @click="myMadeClick">내가 만든
                         방</button>
-                    <button class=" list-panel-button" :class="{ active: !topButtonValue }" @click="topButton2Toggle">초대 받은
+                    <button class=" list-panel-button" :class="{ active: !topButtonValue }" @click="invitedButtonClick">초대
+                        받은
                         방</button>
                 </div>
                 <table class="list-panel-table">
@@ -29,24 +30,27 @@
                     </thead>
                     <tbody v-if="topButtonValue" class="list-panel-tbody">
                         <tr v-for="(     room, index     ) in      roomList     " :key="index">
-                            <td class="list-panel-td">{{ room.index }}</td>
-                            <td class="list-panel-td">{{ room.title }}</td>
-                            <td class="list-panel-td">{{ room.date }}</td>
+                            <td class="list-panel-td">{{ room.idx }}</td>
+                            <td class="list-panel-td">{{ room.r_name }}</td>
+                            <td class="list-panel-td">{{ changeDate(room.r_start_date) }} ~ {{ changeDate(room.r_end_date)
+                            }}</td>
                             <td class="list-panel-td">
                                 <div class="room-control-button-div">
                                     <button class="room-control-button">시작</button>
                                     <button class="room-control-button" @click="toggleInvite">초대</button>
                                     <button class="room-control-button" @click="editRoom">편집</button>
-                                    <button class="room-control-button">삭제</button>
+                                    <button class="room-control-button"
+                                        @click="removeButtonClick(room.r_name, room.idx)">삭제</button>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                     <tbody v-if="!topButtonValue" class="list-panel-tbody">
                         <tr v-for="(     room, index     ) in      inviteRoomList     " :key="index">
-                            <td class="list-panel-td">{{ room.index }}</td>
-                            <td class="list-panel-td">{{ room.title }}</td>
-                            <td class="list-panel-td">{{ room.date }}</td>
+                            <td class="list-panel-td">{{ room.idx }}</td>
+                            <td class="list-panel-td">{{ room.r_name }}</td>
+                            <td class="list-panel-td">{{ changeDate(room.r_start_date) }} ~ {{ changeDate(room.r_end_date)
+                            }}</td>
                             <td class="list-panel-td">
                                 <div class="room-control-button-div">
                                     <button class="room-control-button">참여하기</button>
@@ -76,17 +80,19 @@
 </template>
 
 <script>
-import RoomList from '../assets/dummyData'
-import InviteRoomList from '../assets/dummyInviteData'
+// import RoomList from '../assets/dummyData'
+import { getRoomApi, getInviteRoomApi, removeRoomApi, isExistUserApi, inviteUserApi } from '../api/index'
 export default {
     name: 'RoomListView',
     data() {
         return {
-            roomList: RoomList,
-            inviteRoomList: InviteRoomList,
+            roomList: [],
+            inviteRoomList: [],
             topButtonValue: true,
             inviteUserName: '',
             inviteToggleValue: false,
+            roomName: '',
+            roomUid: '',
         }
     },
     methods: {
@@ -109,11 +115,82 @@ export default {
         toggleInvite() {
             this.inviteToggleValue = !this.inviteToggleValue
             this.inviteUserName = '';
-        }
+        },
+        invitedButtonClick() {
+            this.topButton2Toggle();
+            this.getInviteRoom();
+        },
+        myMadeClick() {
+            this.topButton1Toggle();
+            this.getRoom();
+        },
+        removeButtonClick(name, uid) {
+            let choice = confirm("정말 회의방을 삭제할건가요?");
+            if (choice) {
+                this.removeRoom(name, uid);
+                this.getRoom();
+            }
+        },
+        changeDate(inputDate) {
+            // room.r_start_date를 Date 객체로 변환
+            let date = new Date(inputDate * 1000);
 
+            let year = date.getFullYear();
+            let month = date.getMonth();
+            let day = date.getDate();
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            let seconds = date.getSeconds();
+
+            let formattedDate = `${year}.${month.toString().padStart(2, '0')}.${day.toString().padStart(2, '0')}. ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            return formattedDate
+        },
+        async removeRoom(name, uid) {
+            try {
+                this.roomName = name;
+                this.roomUid = uid;
+                let response = await removeRoomApi(this.$store.state.userToken, this.$store.state.userId, this.roomName, this.roomUid)
+                if (response.data.RETURN_ISSUCESS) {
+                    console.log("Remove Success");
+                } else {
+                    console.log("Remove Failed");
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async getRoom() {
+            try {
+                let response = await getRoomApi(this.$store.state.userToken, this.$store.state.userId);
+                this.roomList = JSON.parse(response.data.RETURN_DATA);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async getInviteRoom() {
+            try {
+                let response = await getInviteRoomApi(this.$store.state.userToken, this.$store.state.userId)
+                this.inviteRoomList = JSON.parse(response.data.RETURN_DATA);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async inviteUser() {
+            try {
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
     },
-    computed: {
-    },
+    async mounted() {
+        try {
+            let response = await getRoomApi(this.$store.state.userToken, this.$store.state.userId);
+            this.roomList = JSON.parse(response.data.RETURN_DATA);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 </script>
 

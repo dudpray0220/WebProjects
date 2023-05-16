@@ -1,7 +1,7 @@
 <template>
   <div class="app-wrapper">
-    <header-component v-if="headerToggle == 0"></header-component>
-    <header-component-after-login v-if="headerToggle == 1"></header-component-after-login>
+    <header-component v-if="$store.state.isLogin == false"></header-component>
+    <header-component-after-login v-else></header-component-after-login>
 
     <router-view></router-view>
     <footer-component></footer-component>
@@ -22,7 +22,6 @@ export default {
   },
   data() {
     return {
-      headerToggle: 1
     }
   }
 }

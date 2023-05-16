@@ -28,7 +28,7 @@
                     <li class="nav-item">
                         <router-link to="/mypage/modify" id="profile-wrapper">
                             <img class="profile-image" src="../assets/profile.png" alt="userProfile">
-                            <span>yhbae</span>
+                            <span>{{ $store.state.userId }}</span>
                         </router-link>
                     </li>
                 </ul>
@@ -43,12 +43,13 @@ export default {
     methods: {
         checkLogout() {
             let logoutValue = confirm("정말 로그아웃 하시겠습니까?");
-            // console.log(logoutValue)
             if (logoutValue) {
+                this.$store.commit('loginChange');
+                console.log(this.$store.state.isLogin);
                 this.$router.push('/login');
             }
         }
-    }
+    },
 }
 </script>
 

@@ -8,14 +8,14 @@
                     <p class="panel-info">CenterFace와 함께 평범한 화상회의를<br> 특별하게 만나보세요</p>
                 </div>
                 <!-- 우측 form -->
-                <form action="" class="login-panel-form">
+                <form action="" class="login-panel-form" @submit.prevent="login">
                     <div class="panel-input-div">
                         <input class="panel-input" type="text" id="user-id" v-model="userId">
                         <label class="panel-input-label" for="user-id" :class="{ inputActive: userId }">아이디</label>
                     </div>
                     <div class="panel-input-div">
-                        <input class="panel-input" type="password" id="user-pw" v-model="userPw">
-                        <label class="panel-input-label" for="user-pw" :class="{ inputActive: userPw }">비밀번호</label>
+                        <input class="panel-input" type="password" id="user-pw" v-model="userPwd">
+                        <label class="panel-input-label" for="user-pw" :class="{ inputActive: userPwd }">비밀번호</label>
                     </div>
                     <button class="cf-button-orange">로그인</button>
                     <div class="contained-checkbox-divs">
@@ -38,12 +38,13 @@
 </template>
 
 <script>
+import { encryptionApi, encryptionTestApi, loginApi } from '../api/index'
 export default {
     name: 'LoginView',
     data() {
         return {
             userId: '',
-            userPw: '',
+            userPwd: '',
         }
     },
     components: {
@@ -54,6 +55,47 @@ export default {
         },
         navigateToRouteSignup() {
             this.$router.push('/signup');
+        },
+        // // login function(chain)
+        // login() {
+        //     encryptionApi(this.userId)
+        //         .then((key) => encryptionTestApi(key.data.RETURN_DATA, this.userPwd))
+        //         .then((encryptedPw) => loginApi(this.userId, encryptedPw.data.RETURN_DATA))
+        //         .then((response) => {
+        //             if (response.data.RETURN_ISSUCESS) {
+        //                 this.$router.push('/main');
+        //                 console.log(`welcome ${this.userId}`);
+        //                 console.log(response.data.RETURN_ISSUCESS);
+        //             } else {
+        //                 console.log('Login Failed');
+        //                 console.log(response.data.RETURN_ISSUCESS);
+        //             }
+        //         })
+        //         .catch(error => { console.log(error) });
+        // },
+        async login() {
+            try {
+                const key = await encryptionApi(this.userId);
+                const encryptedPw = await encryptionTestApi(key.data.RETURN_DATA, this.userPwd);
+                const response = await loginApi(this.userId, encryptedPw.data.RETURN_DATA);
+
+                if (response.data.RETURN_ISSUCESS) {
+                    this.$router.push('/main');
+                    this.$store.commit('loginChange');
+                    this.$store.commit('saveUserId', this.userId);
+                    this.$store.commit('saveUserToken', response.data.RETURN_DATA);
+                    console.log(`welcome ${this.userId}`);
+                    console.log(this.$store.state.isLogin);
+                    console.log(`token: ${response.data.RETURN_DATA}`);
+                    console.log(response.data.RETURN_ISSUCESS);
+                } else {
+                    console.log('Login Failed');
+                    console.log(this.$store.state.isLogin);
+                    console.log(response.data.RETURN_ISSUCESS);
+                }
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 }
