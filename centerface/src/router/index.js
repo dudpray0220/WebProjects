@@ -8,6 +8,7 @@ import RoomListView from "../views/RoomListView.vue";
 import ReservationView from "../views/ReservationView.vue";
 import MypageLeaveView from "../views/MypageLeaveView";
 import FindPasswordView from "../views/FindPasswordView";
+import SignupSuccessView from "../views/SignupSuccessView";
 
 // ... 라우트 설정
 const routes = [
@@ -26,6 +27,10 @@ const routes = [
   {
     path: "/signup",
     component: SignupView,
+  },
+  {
+    path: "/signup/success",
+    component: SignupSuccessView,
   },
   {
     path: "/faq",

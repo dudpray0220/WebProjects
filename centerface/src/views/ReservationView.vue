@@ -9,8 +9,8 @@
                 </div>
                 <form action="" class="reservation-form">
                     <div class="panel-input-div">
-                        <input class="panel-input" type="text" name="" id="reservation-name" v-model="roomTitle">
-                        <label class="panel-input-label" for="reservation-name" :class="{ inputActive: roomTitle }">회의명
+                        <input class="panel-input" type="text" name="" id="reservation-name" v-model="roomName">
+                        <label class="panel-input-label" for="reservation-name" :class="{ inputActive: roomName }">회의명
                             <span class="input-alert-label">(필수)</span></label>
                     </div>
                     <div class="panel-input-div">
@@ -35,21 +35,24 @@
                     <ul v-if="detailToggleValue" class="detail-set-ul">
                         <li class="detail-set-lis">
                             <p>입장 후 툴바 표시 시간 설정</p>
-                            <select class="detail-set-item" name="" id="">
+                            <select class="detail-set-item" name="toolbarInitialTimeOut"
+                                v-model="roomOption.option.toolbarInitialTimeOut">
                                 <option value="20000">20,000(ms)</option>
                                 <option value="40000">40,000(ms)</option>
                             </select>
                         </li>
                         <li class="detail-set-lis">
                             <p>회의 중 툴바 표시 시간 설정</p>
-                            <select class="detail-set-item" name="" id="">
+                            <select class="detail-set-item" name="toolbarTimeout"
+                                v-model="roomOption.option.toolbarTimeout">
                                 <option value="4000">4,000(ms)</option>
                                 <option value="2000">2,000(ms)</option>
                             </select>
                         </li>
                         <li class="detail-set-lis">
                             <p>회의 입장 인원 제한</p>
-                            <input class="detail-set-item" type="number" value="20">
+                            <input class="detail-set-item" type="number" name="limitParticipantCount"
+                                v-model="roomOption.option.limitParticipantCount">
                         </li>
                     </ul>
                     <div v-if="detailToggleValue" class="toolbar-div">
@@ -57,39 +60,48 @@
                         <ul class="toolbar-div-ul">
                             <li>
                                 <p>카메라</p>
-                                <input type="checkbox" checked name="" id="">
+                                <input type="checkbox" :checked="roomOption.toolbar.includes('camera')"
+                                    @change="toggleToolbarOption('camera')" name="camera">
                             </li>
                             <li>
                                 <p>마이크</p>
-                                <input type="checkbox" checked name="" id="">
+                                <input type="checkbox" :checked="roomOption.toolbar.includes('microphone')"
+                                    @change="toggleToolbarOption('microphone')" name="microphone">
                             </li>
                             <li>
                                 <p>채팅</p>
-                                <input type="checkbox" checked name="" id="">
+                                <input type="checkbox" :checked="roomOption.toolbar.includes('chat')"
+                                    @change="toggleToolbarOption('chat')" name="chat">
                             </li>
                             <li>
                                 <p>화면공유</p>
-                                <input type="checkbox" checked name="" id="">
+                                <input type="checkbox" :checked="roomOption.toolbar.includes('desktop')"
+                                    @change="toggleToolbarOption('desktop')" name="desktop">
                             </li>
                             <li>
                                 <p>참가자</p>
-                                <input type="checkbox" checked name="" id="">
+                                <input type="checkbox" :checked="roomOption.toolbar.includes('participants-pane')"
+                                    @change="toggleToolbarOption('participants-pane')" name="participants-pane">
                             </li>
                             <li>
                                 <p>말하기 요청</p>
-                                <input type="checkbox" checked name="" id="">
+                                <input type="checkbox" :checked="roomOption.toolbar.includes('raisehand')"
+                                    @change="toggleToolbarOption('raisehand')" name="raisehand">
                             </li>
                             <li>
                                 <p>타일뷰</p>
-                                <input type="checkbox" checked name="" id="">
+                                <input type="checkbox" :checked="roomOption.toolbar.includes('tileview')"
+                                    @change="toggleToolbarOption('tileview')" name="tileview">
                             </li>
                             <li>
                                 <p>설정</p>
-                                <input type="checkbox" checked name="" id="">
+                                <input type="checkbox" :checked="roomOption.toolbar.includes('settings')"
+                                    @change="toggleToolbarOption('settings')" name="settings">
                             </li>
                         </ul>
                     </div>
-                    <button class="cf-button-orange reservation-button">예약하기</button>
+                    <button type="button" class="cf-button-orange reservation-button"
+                        @click.prevent="createRoom">예약하기</button>
                     <button class="cf-button-white cf-button-black" @click="navigateToRouter">취소</button>
                 </form>
             </div>
@@ -98,19 +110,38 @@
 </template>
 
 <script>
+import { createRoomApi } from '../api/index'
 export default {
     name: "ReservationView",
     data() {
         return {
             startDate: '',
             startTime: '',
+            startDateTime: '',
             endDate: '',
             endTime: '',
+            endDateTime: '',
             detailToggleValue: true,
-            roomTitle: '',
+            roomName: '',
             roomContents: '',
+            roomOption: {
+                option: {
+                    toolbarInitialTimeOut: '20000',
+                    toolbarTimeout: '4000',
+                    toolbarAlwaysVisible: false,
+                    toolbarautoHideWhileChatIsOpen: false,
+                    disableModeratorIndicator: true,
+                    startWithAudioMuted: true,
+                    startWithVideoMuted: true,
+                    limitParticipantCount: 20,
+                    setTileView: true,
+                    hideConferenceTimer: true
+                },
+                toolbar: ["camera", "microphone", "chat", "fullscreen", "desktop", "participants-pane", "raisehand", "tileview", "settings"]
+            }
         }
     },
+    // 기본값 오늘로 설정 (바뀔때는 v-model로 데이터에 저장)
     created() {
         // 오늘 날짜를 YYYY-MM-DD 형식으로 가져오기
         const today = new Date();
@@ -123,8 +154,9 @@ export default {
         // 현재 시간을 HH:MM 형식으로 가져오기
         const hours = String(today.getHours()).padStart(2, '0')
         const minutes = String(today.getMinutes()).padStart(2, '0')
-        this.startTime = `${hours}:${minutes}`;
-        this.endTime = `${hours}:${minutes}`;
+        const seconds = String(today.getSeconds()).padStart(2, '0')
+        this.startTime = `${hours}:${minutes}:${seconds}`;
+        this.endTime = `${hours}:${minutes}:${seconds}`;
     },
     methods: {
         toggleDetail() {
@@ -132,6 +164,32 @@ export default {
         },
         navigateToRouter() {
             this.$router.push('/main')
+        },
+        toggleToolbarOption(option) {
+            let index = this.roomOption.toolbar.indexOf(option);
+            if (index > -1) {
+                // 있다면 삭제
+                this.roomOption.toolbar.splice(index, 1);
+            } else {
+                this.roomOption.toolbar.push(option);
+            }
+        },
+        async createRoom() {
+            try {
+                this.startDateTime = `${this.startDate} ${this.startTime}`
+                this.endDateTime = `${this.endDate} ${this.endTime}`
+                let roomOptionString = JSON.stringify(this.roomOption);
+
+                let response = await createRoomApi(this.$store.state.userId, this.$store.state.userToken, this.startDateTime, this.endDateTime, this.roomName, roomOptionString, this.$store.state.roomPwd, this.roomContents);
+                if (response.data.RETURN_ISSUCESS) {
+                    alert('회의 예약 성공');
+                    this.$router.push('list');
+                } else {
+                    alert('회의 예약 실패');
+                }
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 }

@@ -18,8 +18,8 @@
                     </div>
                     <div class="panel-input-div">
                         <input class="panel-input" type="password" name="" id="mypage-pw" v-model="userPw">
-                        <label class="panel-input-label" for="mypage-pw" :class="{ inputActive: userPw }">비밀번호 <span
-                                class="input-alert-label">(필수)</span></label>
+                        <label class="panel-input-label" for="mypage-pw" :class="{ inputActive: userPw }" required>비밀번호
+                            <span class="input-alert-label">(필수)</span></label>
                     </div>
                     <div class="panel-input-div">
                         <input class="panel-input" type="password" name="" id="mypage-new-pw" v-model="userNewPw">
@@ -30,11 +30,12 @@
                         <input class="panel-input" type="password" name="" id="mypage-new-pw-confirm"
                             v-model="userNewPwConfirm">
                         <label class="panel-input-label" for="mypage-new-pw-confirm"
-                            :class="{ inputActive: userNewPwConfirm }">새
+                            :class="{ inputActive: userNewPwConfirm }" @change="passwordConfirm">새
                             비밀번호
                             확인</label>
                     </div>
-                    <button class="cf-button-orange cf-button-black">회원정보 수정</button>
+                    <button type="button" class="cf-button-orange cf-button-black" @click.prevent="updateUser">회원정보
+                        수정</button>
                     <button class="cf-button-white cf-button-black">취소</button>
                     <router-link to="/mypage/leave" class="leave-centerface">회원 탈퇴 신청</router-link>
                 </form>
@@ -44,15 +45,60 @@
 </template>
 
 <script>
+import { getUserApi, userVerifyApi, updateUserApi } from '../api/index'
 export default {
     name: "MypageView",
     data() {
         return {
-            userName: '배영현',
+            userName: '',
             userEmail: '',
             userPw: '',
             userNewPw: '',
             userNewPwConfirm: '',
+        }
+    },
+    async mounted() {
+        try {
+            let response = await getUserApi(this.$store.state.userToken, this.$store.state.userId)
+            if (response.data) {
+                this.userName = response.data.USERNAME;
+                this.userEmail = response.data.USEREMAIL;
+            } else {
+                console.log('데이터 조회 실패');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    methods: {
+        async updateUser() {
+            try {
+                let verifyValue = await userVerifyApi(this.$store.state.userToken, this.$store.state.userId, this.userPw)
+                console.log(verifyValue.data.RETURN_ISSUCESS);
+                if (verifyValue.data.RETURN_ISSUCESS && this.passwordConfirm) {
+                    let response = await updateUserApi(this.$store.state.userToken, this.$store.state.userId, this.userNewPwConfirm, this.userEmail, this.userName)
+                    if (response.data.RETURN_ISSUCESS) {
+                        alert('회원정보 수정 완료됐습니다.');
+                        this.$router.push('/main');
+                    } else {
+                        alert('회원정보 수정 중 오류 발생!');
+                    }
+                } else {
+                    console.log('유저 검증 오류');
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    },
+    computed: {
+        passwordConfirm() {
+            return this.userNewPw === this.userNewPwConfirm;
+        }
+    },
+    watch: {
+        passwordConfirm(newValue) {
+            console.log(`pwConfirmValue : ${newValue}`)
         }
     }
 }

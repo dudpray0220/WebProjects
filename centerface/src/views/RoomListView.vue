@@ -8,7 +8,8 @@
                 <div class="list-panel-button-div">
                     <button class="list-panel-button" :class="{ active: topButtonValue }" @click="myMadeClick">내가 만든
                         방</button>
-                    <button class=" list-panel-button" :class="{ active: !topButtonValue }" @click="invitedButtonClick">초대
+                    <button class=" list-panel-button" :class="{ active: !topButtonValue }"
+                        @click="invitedRoomButtonClick">초대
                         받은
                         방</button>
                 </div>
@@ -37,7 +38,8 @@
                             <td class="list-panel-td">
                                 <div class="room-control-button-div">
                                     <button class="room-control-button">시작</button>
-                                    <button class="room-control-button" @click="toggleInvite">초대</button>
+                                    <button class="room-control-button"
+                                        @click="inviteButtonClick(room.idx, room.r_name, room.r_title)">초대</button>
                                     <button class="room-control-button" @click="editRoom">편집</button>
                                     <button class="room-control-button"
                                         @click="removeButtonClick(room.r_name, room.idx)">삭제</button>
@@ -64,13 +66,16 @@
                     <form class="invite-panel">
                         <h2>회의 초대</h2>
                         <div class="panel-input-div invite-panel-div">
-                            <input class="panel-input" type="text" id="invite-user" v-model="inviteUserName">
-                            <label class="panel-input-label" for="invite-user" :class="{ inputActive: inviteUserName }">초대할
+                            <input class="panel-input" type="text" id="invite-user" v-model="userToInvite"
+                                @change="isExistUser">
+                            <label class="panel-input-label" for="invite-user" :class="{ inputActive: userToInvite }">초대할
                                 아이디 <span class="input-alert-label">(필수)</span></label>
                         </div>
                         <div class="invite-button-div">
-                            <button class="cf-button-orange">초대</button>
-                            <button class="cf-button-white cf-button-black" type="button" @click="toggleInvite">취소</button>
+                            <button type="button" class="cf-button-orange invite-button" :disabled="!isExist"
+                                @click.prevent="inviteUser">초대</button>
+                            <button class="cf-button-white cf-button-black" type="button"
+                                @click="cancelInviteClick">취소</button>
                         </div>
                     </form>
                 </div>
@@ -89,10 +94,12 @@ export default {
             roomList: [],
             inviteRoomList: [],
             topButtonValue: true,
-            inviteUserName: '',
             inviteToggleValue: false,
             roomName: '',
             roomUid: '',
+            roomContents: '',
+            userToInvite: '',
+            isExist: false,
         }
     },
     methods: {
@@ -112,11 +119,24 @@ export default {
         editRoom() {
             alert('아직 준비중인 기능입니다');
         },
-        toggleInvite() {
+        // 방 '초대' 버튼 클릭 함수
+        inviteButtonClick(roomUid, roomName, roomContents) {
             this.inviteToggleValue = !this.inviteToggleValue
-            this.inviteUserName = '';
+            this.roomUid = roomUid;
+            this.roomName = roomName;
+            this.roomContents = roomContents;
+            console.log(`${this.roomUid} ${this.roomName} ${this.roomContents}`)
         },
-        invitedButtonClick() {
+        cancelInviteClick() {
+            this.inviteToggleValue = !this.inviteToggleValue
+            this.roomUid = '';
+            this.roomName = '';
+            this.roomContents = '';
+            this.userToInvite = ''
+            console.log(`${this.roomUid} ${this.roomName} ${this.roomContents} ${this.userToInvite}`)
+        },
+        // 초대받은 방 탭 클릭 함수
+        invitedRoomButtonClick() {
             this.topButton2Toggle();
             this.getInviteRoom();
         },
@@ -136,7 +156,7 @@ export default {
             let date = new Date(inputDate * 1000);
 
             let year = date.getFullYear();
-            let month = date.getMonth();
+            let month = date.getMonth() + 1;
             let day = date.getDate();
             let hours = date.getHours();
             let minutes = date.getMinutes();
@@ -175,9 +195,33 @@ export default {
                 console.log(error);
             }
         },
+        async isExistUser() {
+            try {
+                let isExist = await isExistUserApi(this.userToInvite)
+                this.isExist = isExist.data.RETURN_ISSUCESS;
+                if (this.isExist) {
+                    console.log(`초대할 유저가 있습니다 : ${this.userToInvite}`);
+                } else {
+                    console.log("초대할 유저가 존재하지 않습니다");
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
         async inviteUser() {
             try {
+                if (this.isExist) {
+                    let response = await inviteUserApi(this.roomUid, this.roomName, this.roomContents, this.$store.state.userToken, this.$store.state.userId, this.userToInvite)
+                    console.log("OK")
 
+                    if (response.data.RETURN_ISSUCESS) {
+                        alert("초대 성공");
+                        this.inviteToggleValue = !this.inviteToggleValue;
+                        this.userToInvite = '';
+                    } else {
+                        console.log("초대 실패. 혼자하세요");
+                    }
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -350,5 +394,11 @@ export default {
 .invite-button-div button {
     flex: 1;
     padding: 0.7rem;
+}
+
+.invite-button:disabled {
+    border: 1px solid rgb(229, 229, 229);
+    color: rgb(217, 217, 217);
+    background-color: rgb(255, 255, 255);
 }
 </style>

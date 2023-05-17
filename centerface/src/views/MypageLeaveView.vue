@@ -17,15 +17,16 @@
                         </ul>
                     </div>
                     <div class="panel-input-div">
-                        <input class="panel-input" type="text" disabled id="leave-name">
-                        <label class="panel-input-label" for="leave-name">성함</label>
+                        <input class="panel-input" type="text" disabled id="leave-id" :value="$store.state.userId">
+                        <label class="panel-input-label inputActive" for="leave-id">아이디</label>
                     </div>
                     <div class="panel-input-div">
-                        <input class="panel-input" type="text" id="leave-pw">
+                        <input class="panel-input" type="password" id="leave-pw" v-model="userPw">
                         <label class="panel-input-label" for="leave-pw">비밀번호 <span
                                 class="input-alert-label">(필수)</span></label>
                     </div>
-                    <button class="cf-button-orange cf-button-black">회원 탈퇴</button>
+                    <button class="cf-button-orange cf-button-black" type="button" @click.prevent="removeUser">회원
+                        탈퇴</button>
                     <button class="cf-button-white cf-button-black" @click="navigateToRoute">돌아가기</button>
                 </form>
             </div>
@@ -34,11 +35,36 @@
 </template>
 
 <script>
+import { userVerifyApi, removeUserApi } from '../api/index'
 export default {
     name: "MypageLeaveView",
+    data() {
+        return {
+            userPw: ''
+        }
+    },
     methods: {
         navigateToRoute() {
             this.$router.push('/mypage/modify')
+        },
+        async removeUser() {
+            try {
+                let verifyValue = await userVerifyApi(this.$store.state.userToken, this.$store.state.userId, this.userPw)
+                if (verifyValue.data.RETURN_ISSUCESS) {
+                    let response = await removeUserApi(this.$store.state.userToken, this.$store.state.userId);
+                    if (response.data.RETURN_ISSUCESS) {
+                        alert('회원탈퇴가 완료되었습니다.');
+                        this.$store.commit('loginChange');
+                        this.$router.push('/main')
+
+
+                    } else {
+                        console.log('회원탈퇴 중 오류발생');
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 }

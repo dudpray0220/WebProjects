@@ -23,12 +23,12 @@
                                 class="input-alert-label">(필수)</span></label>
                     </div>
                     <div class="panel-input-div signup-input-div">
-                        <input class="panel-input" type="text" name="" id="signup-pw" v-model="userPw">
+                        <input class="panel-input" type="password" name="" id="signup-pw" v-model="userPw">
                         <label class="panel-input-label" for="signup-pw" :class="{ inputActive: userPw }">비밀번호 <span
                                 class="input-alert-label">(필수)</span></label>
                     </div>
                     <div class="panel-input-div signup-input-div">
-                        <input class="panel-input" type="text" name="" id="signup-confirm-pw" v-model="userPwConfirm">
+                        <input class="panel-input" type="password" name="" id="signup-confirm-pw" v-model="userPwConfirm">
                         <label class="panel-input-label" for="signup-confirm-pw"
                             :class="{ inputActive: userPwConfirm }">비밀번호 확인
                             <span class="input-alert-label">(필수)</span></label>
@@ -38,11 +38,11 @@
                         <label class="panel-input-label" for="signup-coupon" :class="{ inputActive: userCoupon }">인증 번호
                             <span class="input-alert-label">(필수)</span></label>
                     </div>
-                    <button class="cf-button-orange cf-button-black">가입하기</button>
+                    <button class="cf-button-orange cf-button-black" type="button" @click.prevent="signupUser">가입하기</button>
                     <button class="cf-button-white cf-button-black" @click="navigateToRoute">취소</button>
                     <div class="signup-checkbox-wrapper">
                         <div class="signup-checkbox-div">
-                            <input class="panel-checkbox" type="checkbox" name="" id="agree-term">
+                            <input class="panel-checkbox" type="checkbox" id="agree-term" v-model="agreeTermChecked">
                             <label class="signup-lable" for="agree-term">이용약관 동의</label>
                         </div>
                         <button type="button" class="see-info-button" @click="seeAgreeTerm">내용 보기</button>
@@ -50,7 +50,7 @@
 
                     <div class="signup-checkbox-wrapper">
                         <div class="signup-checkbox-div">
-                            <input class="panel-checkbox" type="checkbox" name="" id="agree-info">
+                            <input class="panel-checkbox" type="checkbox" id="agree-info" v-model="agreeInfoChecked">
                             <label class="signup-lable" for="agree-info">개인정보 수집 및 이용에 대한 동의</label>
                         </div>
                         <button type="button" class="see-info-button" @click="seeAgreeInfo">내용 보기</button>
@@ -59,7 +59,7 @@
 
                     <div class="signup-checkbox-wrapper">
                         <div class="signup-checkbox-div">
-                            <input class="panel-checkbox" type="checkbox" name="" id="agree-email">
+                            <input class="panel-checkbox" type="checkbox" id="agree-email">
                             <label class="signup-lable" for="agree-email">사용자 설문 조사 메일 수신 동의</label>
                         </div>
                     </div>
@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import { signupUserApi } from '../api/index'
 import AgreeTerm from '../components/AgreeTerm.vue'
 import AgreeInfo from '../components/AgreeInfo.vue'
 export default {
@@ -90,6 +91,9 @@ export default {
             userPw: '',
             userPwConfirm: '',
             userCoupon: '',
+
+            agreeTermChecked: false,
+            agreeInfoChecked: false,
 
             agreeTermToggle: false,
             agreeInfoToggle: false,
@@ -114,8 +118,37 @@ export default {
         },
         navigateToRoute() {
             this.$router.push('/login')
+        },
+        async signupUser() {
+            try {
+                if (this.confirmPw) {
+                    if (!this.agreeTermChecked || !this.agreeInfoChecked) {
+                        alert('이용약관 및 개인정보 수집에 동의해주세요.');
+                    } else {
+                        let response = await signupUserApi(this.userCoupon, this.userEmail, this.userId, this.userName, this.userPw)
+                        if (response.data.RETURN_ISSUCESS) {
+                            alert('Centerface의 회원이 되신 것을 환영합니다!');
+                            this.$router.push('/signup/success')
+                        } else {
+                            alert('회원 가입 거절. 안녕히 가세요.');
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
         }
     },
+    computed: {
+        confirmPw() {
+            return this.userPw === this.userPwConfirm
+        }
+    },
+    watch: {
+        confirmPw(newValue) {
+            console.log(`newValue: ${newValue}`);
+        }
+    }
 }
 </script>
 

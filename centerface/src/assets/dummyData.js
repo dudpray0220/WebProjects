@@ -1,7 +1,23 @@
-export default [
+'{"option":{"toolbarInitialTimeOut":"20000","toolbarTimeout":"4000","toolbarAlwaysVisible":false,"toolbarautoHideWhileChatIsOpen":false,"disableModeratorIndicator":true,"startWithAudioMuted":true,"startWithVideoMuted":true,"limitParticipantCount":"20","setTileView":true,"hideConferenceTimer":true},"toolbar":["camera","microphone","chat","fullscreen","desktop","participants-pane","raisehand","tileview","settings"]}';
+
+[
   {
-    index: "212",
-    title: "iStation 제품화 추진 팀 구성 및 회의	",
-    date: "2023. 2. 8. 오후 5:00:00 ~ 2023. 2. 8. 오후 6:00:00",
+    toolbarautoHideWhileChatIsOpen: false,
+    disableModeratorIndicator: true,
+    startWithAudioMuted: true,
+    startWithVideoMuted: true,
+    setTileView: true,
+    hideConferenceTimer: true,
+    toolbar: [
+      "camera",
+      "microphone",
+      "chat",
+      "fullscreen",
+      "desktop",
+      "participants-pane",
+      "raisehand",
+      "tileview",
+      "settings",
+    ],
   },
 ];

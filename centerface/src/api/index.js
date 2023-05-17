@@ -102,9 +102,9 @@ function isExistUserApi(userId) {
   );
 }
 function inviteUserApi(
-  roomId,
+  roomUid,
   roomName,
-  roomTitle,
+  roomContents,
   userToken,
   userId,
   userList
@@ -113,9 +113,9 @@ function inviteUserApi(
     config.baseUrl,
     {
       RequestType: "R_INVITEUSER",
-      ROOMID: roomId,
+      ROOMID: roomUid,
       ROOMNAME: roomName,
-      ROOMTITLE: roomTitle,
+      ROOMTITLE: roomContents,
       TOKEN: userToken,
       USERID: userId,
       USERLIST: userList,
@@ -125,15 +125,127 @@ function inviteUserApi(
     }
   );
 }
-
+function createRoomApi(
+  userId,
+  userToken,
+  startDate,
+  endDate,
+  roomName,
+  roomOption,
+  roomPwd,
+  roomContents
+) {
+  return axios.post(
+    config.baseUrl,
+    {
+      RequestType: "R_CREATEROOM",
+      USERID: userId,
+      TOKEN: userToken,
+      STARTDATE: startDate,
+      ENDDATE: endDate,
+      ROOMNAME: roomName,
+      ROOMPWD: roomPwd,
+      ROOMTITLE: roomContents,
+      ROOMOPTION: roomOption,
+    },
+    {
+      headers: { "Content-Type": "application/json; charset=UTF-8" },
+    }
+  );
+}
+// mypage function
+function getUserApi(userToken, userId) {
+  return axios.post(
+    config.baseUrl,
+    {
+      RequestType: "C_GETUSERINFO",
+      TOKEN: userToken,
+      USERID: userId,
+    },
+    {
+      headers: { "Content-Type": "application/json; charset=UTF-8" },
+    }
+  );
+}
+function userVerifyApi(userToken, userId, userPwd) {
+  return axios.post(
+    config.baseUrl,
+    {
+      RequestType: "C_VERIFYUSERINFO",
+      TOKEN: userToken,
+      USERID: userId,
+      USERPWD: userPwd,
+    },
+    {
+      headers: { "Content-Type": "application/json; charset=UTF-8" },
+    }
+  );
+}
+function updateUserApi(userToken, userId, userPwd, userEmail, userName) {
+  return axios.post(
+    config.baseUrl,
+    {
+      RequestType: "C_UPDATEUSER",
+      TOKEN: userToken,
+      USERID: userId,
+      USERPWD: userPwd,
+      USEREMAIL: userEmail,
+      USERNAME: userName,
+    },
+    {
+      headers: { "Content-Type": "application/json; charset=UTF-8" },
+    }
+  );
+}
+function removeUserApi(userToken, userId) {
+  return axios.post(
+    config.baseUrl,
+    {
+      RequestType: "C_REMOVEUSER",
+      TOKEN: userToken,
+      USERID: userId,
+    },
+    {
+      headers: { "Content-Type": "application/json; charset=UTF-8" },
+    }
+  );
+}
+//signup function
+function signupUserApi(userCoupon, userEmail, userId, userName, userPwd) {
+  return axios.post(
+    config.baseUrl,
+    {
+      COUPON: userCoupon,
+      RequestType: "C_REGUSER",
+      USEREMAIL: userEmail,
+      USERID: userId,
+      USERNAME: userName,
+      USERPWD: userPwd,
+    },
+    {
+      headers: { "Content-Type": "application/json; charset=UTF-8" },
+    }
+  );
+}
 // export
 export {
+  // login
   encryptionApi,
   encryptionTestApi,
   loginApi,
+  // room
   getRoomApi,
   getInviteRoomApi,
   removeRoomApi,
   isExistUserApi,
   inviteUserApi,
+  createRoomApi,
+  // myPage
+  getUserApi,
+  userVerifyApi,
+  updateUserApi,
+  // 탈퇴
+  removeUserApi,
+  // 회원가입
+  signupUserApi,
 };

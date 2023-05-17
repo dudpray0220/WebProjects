@@ -7,6 +7,8 @@ const store = createStore({
       isLogin: false,
       userId: "",
       userToken: "",
+      roomPwd: "123qwe",
+      groupId: 1,
     };
   },
   mutations: {
