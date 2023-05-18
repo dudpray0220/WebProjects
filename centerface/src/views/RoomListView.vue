@@ -73,7 +73,7 @@
                         </div>
                         <div class="invite-button-div">
                             <button type="button" class="cf-button-orange invite-button" :disabled="!isExist"
-                                @click.prevent="inviteUser">초대</button>
+                                :style="buttonStyle" @click.prevent="inviteUser">초대</button>
                             <button class="cf-button-white cf-button-black" type="button"
                                 @click="cancelInviteClick">취소</button>
                         </div>
@@ -233,6 +233,14 @@ export default {
             this.roomList = JSON.parse(response.data.RETURN_DATA);
         } catch (error) {
             console.log(error);
+        }
+    },
+    computed: {
+        buttonStyle() {
+            if (!this.isExist) {
+                return { cursor: 'default' }
+            }
+            return {};
         }
     }
 }
@@ -400,5 +408,31 @@ export default {
     border: 1px solid rgb(229, 229, 229);
     color: rgb(217, 217, 217);
     background-color: rgb(255, 255, 255);
+}
+
+/* =============== MEDIA QUERIES ======= */
+
+@media screen and (max-width: 768px) {
+    .list-panel-div {
+        width: 100%;
+        max-width: 90%;
+    }
+
+    .list-panel-button-div {
+        width: 35%;
+    }
+
+    .list-panel-table .list-panel-th:first-child {
+        min-width: 50px;
+        white-space: nowrap;
+    }
+
+    .room-control-button-div {
+        display: block;
+    }
+
+    .room-control-button {
+        margin: 3px;
+    }
 }
 </style>

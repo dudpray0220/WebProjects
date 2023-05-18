@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import createPersistedState from "vuex-persistedstate";
 // import { mapState } from "vuex";
 
 const store = createStore({
@@ -22,6 +23,7 @@ const store = createStore({
       state.userToken = data;
     },
   },
+  plugins: [createPersistedState()],
   //   computed: {
   //     ...mapState(["isLogin", "userId"]),
   //   },

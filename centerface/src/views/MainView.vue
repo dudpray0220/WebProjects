@@ -5,9 +5,11 @@
             <div class="main-div-top">
                 <div class="centerface-div">
                     <h2>CenterFace</h2>
-                    <p>CenterFace는 어떤 환경이든 능동적으로 적응하여 최적의 화상회의를 제공합니다.<br>
+                    <p class="cf-normal-p">CenterFace는 어떤 환경이든 능동적으로 적응하여 최적의 화상회의를 제공합니다.<br>
                         CenterFace와 함께 평범한 화상회의를 특별하게 만나보세요</p>
-                    <button class="cf-button-white">회의 시작하기</button>
+                    <p class="cf-768-p">CenterFace는 어떤 환경이든 능동적으로 적응하여<br> 최적의 화상회의를 제공합니다.<br><br>
+                        CenterFace와 함께 평범한 화상회의를<br> 특별하게 만나보세요.</p>
+                    <button class="cf-button-white" type="button" @click.prevent="navigateToRoute">회의 시작하기</button>
                 </div>
             </div>
         </section>
@@ -48,7 +50,13 @@
 
 <script>
 export default {
-
+    name: 'MainView',
+    methods: {
+        navigateToRoute() {
+            if (this.$store.state.isLogin)
+                this.$router.push('/list')
+        }
+    }
 }
 </script>
 
@@ -142,5 +150,68 @@ export default {
 .main-section-top {
     background-color: rgb(232, 241, 255);
     ;
+}
+
+.cf-768-p {
+    display: none;
+}
+
+
+/* =============== MEDIA QUERIES ======= */
+
+@media screen and (max-width: 768px) {
+    .main-div-top {
+        height: 350px;
+        background-size: cover;
+        background-position: 60%;
+        background-repeat: no-repeat;
+    }
+
+    .cf-normal-p {
+        display: none;
+    }
+
+    .centerface-div h2 {
+        font-size: 2rem;
+    }
+
+    .cf-768-p {
+        display: block;
+    }
+
+    .cf-items {
+        flex-direction: column;
+        align-items: center;
+        column-gap: 0rem;
+        row-gap: 1rem;
+    }
+
+    .cf-item {
+        max-width: 80%;
+        height: 100%;
+        border: 1px solid rgb(246, 233, 219);
+        border-radius: 10px;
+        background-color: rgb(255, 250, 242);
+        padding: 0.7rem 0.8rem 1rem;
+        line-height: 1.3rem;
+    }
+
+    .cf-item span {
+        font-size: 1.3rem;
+        margin: 0 auto 0.7rem;
+        color: rgb(245, 124, 0);
+    }
+
+    .cf-item strong {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    .main-div-bottom {
+        text-align: center;
+        padding: 3.5rem 1.5rem 5rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
 }
 </style>

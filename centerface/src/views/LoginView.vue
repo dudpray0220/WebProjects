@@ -20,11 +20,11 @@
                     <button class="cf-button-orange">로그인</button>
                     <div class="contained-checkbox-divs">
                         <div class="checkbox-div">
-                            <input class="panel-checkbox" type="checkbox" name="" id="remember-id">
+                            <input class="panel-checkbox" type="checkbox" id="remember-id">
                             <label for="remember-id">아이디 저장</label>
                         </div>
                         <div class="checkbox-div">
-                            <input class="panel-checkbox" type="checkbox" name="" id="remember-pw">
+                            <input class="panel-checkbox" type="checkbox" id="remember-pw">
                             <label for="remember-pw">비밀번호 저장</label>
                         </div>
                     </div>
@@ -156,6 +156,7 @@ export default {
     align-items: center;
 }
 
+/* 가로선 그리기 */
 .contained-checkbox-divs::after {
     position: absolute;
     display: block;
@@ -169,5 +170,44 @@ export default {
 
 #find-pw-btn {
     margin-top: 3.5rem;
+}
+
+/* =============== MEDIA QUERIES ======= */
+
+@media screen and (max-width: 768px) {
+    .login-panel {
+        width: 100%;
+        max-width: 80%;
+    }
+
+    .login-panel-left {
+        background-size: 130% 60%;
+    }
+
+    .panel-info {
+        font-size: 1rem;
+    }
+
+    .contained-checkbox-divs {
+
+        flex-direction: column;
+    }
+
+    .login-panel-form {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .checkbox-div {
+        width: 100%;
+    }
+
+    /* 가로선 그리기 */
+    .contained-checkbox-divs::after {
+        top: 5rem;
+    }
+
+    #find-pw-btn {
+        margin-top: 2rem;
+    }
 }
 </style>

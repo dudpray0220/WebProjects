@@ -70,4 +70,25 @@ footer {
     display: block;
     margin-top: 0.5rem;
 }
+
+/* =============== MEDIA QUERIES ======= */
+
+@media screen and (max-width: 768px) {
+    .footer-info-div {
+        font-size: 0.8rem;
+    }
+
+    .footer-div {
+        padding: 1rem;
+        line-height: 1rem;
+    }
+
+    .footer-title-logo {
+        width: 11rem;
+    }
+
+    .footer-title-logo img {
+        width: 100%;
+    }
+}
 </style>

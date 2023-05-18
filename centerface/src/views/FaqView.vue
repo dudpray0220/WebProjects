@@ -47,6 +47,7 @@ export default {
 
 .faq-panel {
     width: 100%;
+    /* max-width: 55%; */
     max-width: 1080px;
     height: auto;
     margin: 0 auto;
@@ -100,5 +101,18 @@ export default {
     background-color: rgb(245, 124, 0);
     border-color: rgb(245, 124, 0);
     color: rgb(255, 255, 255);
+}
+
+/* =============== MEDIA QUERIES ======= */
+
+@media screen and (max-width: 768px) {
+    .faq-panel {
+        width: 100%;
+        max-width: 80%;
+    }
+
+    .faq-li {
+        font-size: 0.9rem;
+    }
 }
 </style>

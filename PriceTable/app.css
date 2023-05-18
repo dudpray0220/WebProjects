@@ -231,6 +231,8 @@ html {
   color: white;
 }
 
+/* =============== MEDIA QUERIES ======= */
+
 @media (min-width: 900px) {
   .panel {
     flex-direction: row;
