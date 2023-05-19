@@ -4,7 +4,8 @@
             <div class="find-panel">
                 <div class="find-panel-title-div">
                     <h2>비밀번호 찾기</h2>
-                    <p>비밀번호 재설정을 위해 가입시 등록한 이메일 주소를 입력해 주세요.</p>
+                    <p class="find-panel-normal-p">비밀번호 재설정을 위해 가입시 등록한 이메일 주소를 입력해 주세요.</p>
+                    <p class="find-panel-576-p">비밀번호 재설정을 위해 가입시 등록한<br /> 이메일 주소를 입력해 주세요.</p>
                 </div>
                 <form class="find-form" action="">
                     <div class="panel-input-div find-email-div">
@@ -72,5 +73,34 @@ export default {
 
 .send-email-button {
     margin-bottom: 1rem;
+}
+
+.find-panel-576-p {
+    display: none;
+}
+
+/* =============== MEDIA QUERIES ======= */
+
+@media screen and (max-width: 576px) {
+    .find-panel {
+        width: 100%;
+        max-width: 80%;
+        margin: 0 auto;
+        padding: 1rem 0;
+    }
+
+    .find-panel-title-div h2 {
+        font-size: 1.7rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .find-panel-576-p {
+        display: block;
+        font-size: 0.9rem;
+    }
+
+    .find-panel-normal-p {
+        display: none;
+    }
 }
 </style>

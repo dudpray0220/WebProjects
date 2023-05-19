@@ -3,7 +3,7 @@
         <div class="login-entire-div">
             <div class="login-panel">
                 <!-- 좌측 그림 -->
-                <div class="login-panel-left">
+                <div class="login-panel-left panel-576">
                     <h2 class="panel-title">CenterFace Login</h2>
                     <p class="panel-info">CenterFace와 함께 평범한 화상회의를<br> 특별하게 만나보세요</p>
                 </div>
@@ -208,6 +208,17 @@ export default {
 
     #find-pw-btn {
         margin-top: 2rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .login-panel {
+        width: 100%;
+        max-width: 90%;
+    }
+
+    .panel-576 {
+        display: none;
     }
 }
 </style>

@@ -341,4 +341,23 @@ export default {
 .reservation-button {
     margin: 1rem 0;
 }
+
+/* =============== MEDIA QUERIES ======= */
+
+@media screen and (max-width: 576px) {
+    .reservation-title-div h2 {
+        font-size: 1.7rem;
+    }
+
+    .reservation-title-div p {
+        padding-bottom: 1rem;
+        font-size: 0.8rem;
+    }
+
+    .detail-set-lis p {
+        width: 50%;
+        color: rgb(51, 51, 51);
+        font-size: 0.8rem;
+    }
+}
 </style>

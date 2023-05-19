@@ -108,11 +108,22 @@ export default {
 @media screen and (max-width: 768px) {
     .faq-panel {
         width: 100%;
-        max-width: 80%;
+        max-width: 90%;
     }
 
     .faq-li {
         font-size: 0.9rem;
+    }
+}
+
+
+@media screen and (max-width: 576px) {
+    .faq-title {
+        font-size: 2rem;
+    }
+
+    .faq-li {
+        font-size: 0.7rem;
     }
 }
 </style>

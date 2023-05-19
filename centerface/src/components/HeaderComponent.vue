@@ -51,6 +51,23 @@
                     </li>
                 </ul>
             </nav>
+            <font-awesome-icon class="hamburger-menu" :icon="['fas', 'bars']" @click="toggleNav" />
+            <div class="dropdown-menu" :class="{ 'showDropdown': showNav }">
+                <ul class="dropdown-ul">
+                    <li class="dropdown-li">
+                        <router-link to="/">홈</router-link>
+                    </li>
+                    <li class="dropdown-li">
+                        <router-link to="/login">로그인</router-link>
+                    </li>
+                    <li class="dropdown-li">
+                        <router-link to="/signup">회원가입</router-link>
+                    </li>
+                    <li class="dropdown-li">
+                        <router-link to="/faq">자주 묻는 질문</router-link>
+                    </li>
+                </ul>
+            </div>
         </div>
     </header>
 </template>
@@ -60,10 +77,18 @@ export default {
     name: 'HeaderComponent',
     data() {
         return {
+            showNav: false
         }
     },
     methods: {
         toggleNav() {
+            this.showNav = !this.showNav;
+            console.log(this.showNav);
+        }
+    },
+    watch: {
+        '$route': function () {
+            this.showNav = false;
         }
     }
 }
@@ -108,14 +133,14 @@ header {
     ;
 }
 
+.hamburger-menu,
+.dropdown-menu {
+    display: none;
+}
+
 /* =============== MEDIA QUERIES ======= */
 
 @media screen and (max-width: 768px) {
-    .hamburger-button {
-        /* 작은 화면에서만 햄버거 버튼 보이기 */
-        display: block;
-    }
-
     .nav-bar-big {
         display: none;
     }
@@ -156,8 +181,66 @@ header {
         column-gap: 0.5rem;
     }
 
-    .header-div {
-        padding: 1rem 1.5rem 1rem 1rem;
+    .header-title-logo {
+        width: 7rem;
+    }
+
+    .header-title-logo img {
+        width: 100%;
+    }
+
+    .nav-bar-small {
+        display: none;
+    }
+
+    .hamburger-menu {
+        display: block;
+        cursor: pointer;
+    }
+
+    .dropdown-menu {
+        display: block;
+        position: absolute;
+        width: 150px;
+        top: 53px;
+        right: 0;
+        background-color: #fff;
+        z-index: 100;
+        text-align: center;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+    }
+
+    .dropdown-menu.showDropdown {
+        max-height: 300px;
+        opacity: 1;
+    }
+
+    .dropdown-ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .dropdown-li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .dropdown-li:last-child {
+        border-bottom: none;
+    }
+
+    .dropdown-li a {
+        text-decoration: none;
+        color: black;
+        line-height: 1.5rem;
+    }
+
+    .dropdown-li a:hover {
+        color: rgb(245, 124, 0);
     }
 }
 </style>

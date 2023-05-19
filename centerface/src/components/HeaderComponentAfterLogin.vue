@@ -72,13 +72,38 @@
                     </li>
                 </ul>
             </nav>
+            <font-awesome-icon class="hamburger-menu" :icon="['fas', 'bars']" @click="toggleNav" />
+            <div class="dropdown-menu" :class="{ 'showDropdown': showNav }">
+                <ul class="dropdown-ul">
+                    <li class="dropdown-li">
+                        <router-link to="/">홈</router-link>
+                    </li>
+                    <li class="dropdown-li">
+                        <router-link to="/reservation">회의예약</router-link>
+                    </li>
+                    <li class="dropdown-li">
+                        <router-link to="/list">회의목록</router-link>
+                    </li>
+                    <li class="dropdown-li">
+                        <router-link to="/faq">자주 묻는 질문</router-link>
+                    </li>
+                    <li class="dropdown-li">
+                        <p @click="checkLogout" class="logout-p">로그아웃</p>
+                    </li>
+                </ul>
+            </div>
         </div>
     </header>
 </template>
 
 <script>
 export default {
-    name: 'HeaderComponent',
+    name: 'HeaderComponentAfterLogin',
+    data() {
+        return {
+            showNav: false
+        }
+    },
     methods: {
         checkLogout() {
             let logoutValue = confirm("정말 로그아웃 하시겠습니까?");
@@ -87,8 +112,17 @@ export default {
                 console.log(this.$store.state.isLogin);
                 this.$router.push('/login');
             }
+        },
+        toggleNav() {
+            this.showNav = !this.showNav;
+            console.log(this.showNav);
         }
     },
+    watch: {
+        '$route': function () {
+            this.showNav = false;
+        }
+    }
 }
 </script>
 
@@ -130,8 +164,8 @@ export default {
     cursor: pointer;
 }
 
-/* =============== MEDIA QUERIES ======= */
 
+/* =============== MEDIA QUERIES ======= */
 
 @media screen and (max-width: 768px) {
     .nav-bar-big-after-login {
@@ -153,21 +187,11 @@ export default {
 }
 
 
+/* =============== MEDIA QUERIES ======= */
+
 @media screen and (max-width: 576px) {
     .nav-items-after-login {
         column-gap: 0.5rem;
-    }
-
-    .header-title-logo {
-        width: 8rem;
-    }
-
-    .header-title-logo img {
-        width: 90%;
-    }
-
-    .header-div-login {
-        padding: 1rem 1.5rem 1rem 1rem;
     }
 }
 </style>

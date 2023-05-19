@@ -5,6 +5,7 @@
                 <div class="signup-title-div">
                     <h2 class="signup-title">CenterFace 회원가입</h2>
                     <p class="signup-info">쉽고 간편한 회원가입으로 CenterFace를 사용하실 수 있습니다.</p>
+                    <p class="signup-info-576">쉽고 간편한 회원가입으로<br /> CenterFace를 사용하실 수 있습니다.</p>
                 </div>
                 <form action="" class="signup-forms">
                     <div class="panel-input-div signup-input-div">
@@ -230,5 +231,39 @@ export default {
 
 .signup-checkbox-wrapper .see-info-button:hover {
     cursor: pointer;
+}
+
+.signup-info-576 {
+    display: none;
+}
+
+/* =============== MEDIA QUERIES ======= */
+
+@media screen and (max-width: 576px) {
+    .signup-panel {
+        max-width: 100%;
+    }
+
+    .signup-forms {
+        width: 80%;
+    }
+
+    .signup-title {
+        font-size: 1.7rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .signup-info {
+        display: none;
+    }
+
+    .signup-info-576 {
+        display: block;
+        font-size: 0.9rem;
+    }
+
+    .signup-checkbox-div .signup-lable {
+        font-size: 0.7rem;
+    }
 }
 </style>

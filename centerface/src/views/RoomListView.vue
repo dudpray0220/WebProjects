@@ -435,4 +435,8 @@ export default {
         margin: 3px;
     }
 }
+
+/* =============== MEDIA QUERIES ======= */
+
+@media screen and (max-width: 576px) {}
 </style>

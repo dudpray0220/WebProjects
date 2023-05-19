@@ -91,4 +91,15 @@ footer {
         width: 100%;
     }
 }
+
+@media screen and (max-width: 576px) {
+    .footer-title-logo {
+        width: 14rem;
+    }
+
+    .footer-info-div {
+        margin: 0 0 0 1rem;
+        font-size: 0.7rem;
+    }
+}
 </style>

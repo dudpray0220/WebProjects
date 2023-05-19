@@ -9,6 +9,8 @@
                         CenterFace와 함께 평범한 화상회의를 특별하게 만나보세요</p>
                     <p class="cf-768-p">CenterFace는 어떤 환경이든 능동적으로 적응하여<br> 최적의 화상회의를 제공합니다.<br><br>
                         CenterFace와 함께 평범한 화상회의를<br> 특별하게 만나보세요.</p>
+                    <p class="cf-576-p">CenterFace는 어떤 환경이든 능동적으로 적응하여<br> 최적의 화상회의를 제공합니다.<br><br>
+                        CenterFace와 함께 평범한 화상회의를<br> 특별하게 만나보세요.</p>
                     <button class="cf-button-white" type="button" @click.prevent="navigateToRoute">회의 시작하기</button>
                 </div>
             </div>
@@ -156,6 +158,10 @@ export default {
     display: none;
 }
 
+.cf-576-p {
+    display: none;
+}
+
 
 /* =============== MEDIA QUERIES ======= */
 
@@ -212,6 +218,32 @@ export default {
         padding: 3.5rem 1.5rem 5rem;
         max-width: 1400px;
         margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .cf-768-p {
+        display: none;
+    }
+
+    .cf-576-p {
+        display: block;
+        font-size: 0.7rem;
+    }
+
+    .centerface-div h2 {
+        font-size: 1.5rem;
+    }
+
+    .main-div-top {
+        height: 330px;
+        background-size: 220% 100%;
+        background-position: 60%;
+        background-repeat: no-repeat;
+    }
+
+    .why-cf {
+        font-size: 1.3rem;
     }
 }
 </style>
