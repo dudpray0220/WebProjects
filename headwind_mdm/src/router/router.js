@@ -1,11 +1,12 @@
 import { createWebHistory, createRouter } from "vue-router";
+import store from "../store";
 import ApplicationView from "../views/ApplicationView.vue";
 import LoginView from "../views/LoginView.vue";
 import ConfigurationView from "../views/ConfigurationView.vue";
 import FileView from "../views/FileView.vue";
 import DevicesView from "../views/DevicesView.vue";
 
-import CommonSettingsView from "../views/Settings/CommonSettingsView.vue";
+import DeviceTableSettingView from "../views/Settings/DeviceTableSettingView.vue";
 import UsersView from "../views/Settings/UsersView.vue";
 import DesignSettingsView from "../views/Settings/DesignSettingsView.vue";
 import GroupsView from "../views/Settings/GroupsView.vue";
@@ -31,7 +32,7 @@ const routes = [
     component: DevicesView,
     beforeEnter: (to, from, next) => {
       // 로그인 시 메인페이지로 아니면 login 페이지로
-      if (this.$store.state.isLogin) {
+      if (store.state.isLogin) {
         next();
       } else {
         next("/login");
@@ -61,8 +62,8 @@ const routes = [
     component: DesignSettingsView,
   },
   {
-    path: "/commonSettings",
-    component: CommonSettingsView,
+    path: "/deviceTableSetting",
+    component: DeviceTableSettingView,
   },
   {
     path: "/users",

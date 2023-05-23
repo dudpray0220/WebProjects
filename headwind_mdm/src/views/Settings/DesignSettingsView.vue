@@ -1,5 +1,9 @@
 <template>
-    DesignSettingsView
+    <main>
+        <div class="settings-entire-div">
+
+        </div>
+    </main>
 </template>
 
 <script>

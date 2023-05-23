@@ -1,10 +1,10 @@
 <template>
-    CommonSettingsView
+    DeviceTableSettingView
 </template>
 
 <script>
 export default {
-    name: 'CommonSettingsView'
+    name: 'DeviceTableSettingView'
 }
 </script>
 
