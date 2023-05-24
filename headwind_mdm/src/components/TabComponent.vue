@@ -143,9 +143,11 @@ export default {
     max-height: 0;
     transition: max-height 0.15s ease-out, opacity 0.15s ease-out;
     z-index: 100;
+    display: none;
 }
 
 .dropdown-settings.showSettingDropdown {
+    display: block;
     max-height: 270px;
     opacity: 1;
 }
@@ -179,9 +181,11 @@ export default {
     max-height: 0;
     transition: max-height 0.15s ease-out, opacity 0.15s ease-out;
     z-index: 100;
+    display: none;
 }
 
 .dropdown-functions.showFunctionDropdown {
+    display: block;
     max-height: 125px;
     opacity: 1;
 }

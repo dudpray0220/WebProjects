@@ -48,22 +48,25 @@
                                 <span>날짜</span>
                             </th>
                             <th>
-                                <span>장치 번호</span>
+                                <span>장치번호</span>
                             </th>
                             <th>
-                                <span>전화 번호</span>
+                                <span>전화번호</span>
                             </th>
                             <th>
-                                <span>권한 상태</span>
+                                <span>권한상태</span>
                             </th>
                             <th>
-                                <span>설치 상태</span>
+                                <span>설치상태</span>
                             </th>
                             <th>
-                                <span>파일 상태</span>
+                                <span>파일상태</span>
                             </th>
                             <th>
                                 <span>구성</span>
+                            </th>
+                            <th>
+                                <span>설명</span>
                             </th>
                             <th>
                                 <span>그룹</span>
@@ -152,19 +155,5 @@ export default {
 
 .form-btn-div {
     padding-right: 2rem;
-}
-
-.main-table {
-    margin-top: 3rem;
-    width: 100%;
-    max-width: 100%;
-}
-
-.main-table>thead tr th {
-    font-weight: 600;
-}
-
-.main-table>thead {
-    border-bottom: 1px solid #ccc;
 }
 </style>
