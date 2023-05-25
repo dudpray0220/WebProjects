@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:8081/ -->
+<html lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="http://localhost:8081/favicon.ico">
+    <title>headwind_mdm</title>
+  <script defer="" src="./headwind_mdm_files/chunk-vendors.js.다운로드"></script><script defer="" src="./headwind_mdm_files/app.js.다운로드"></script><style type="text/css">
+header {
+    height: 50px;
+    background-color: #7a9ab9;
+}
+.header-entire-div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 1.5rem;
+}
+.header-title-div h2 {
+    text-decoration: none;
+    color: #afd0df;
+    font-size: 1.5rem;
+}
+.header-nav-ul {
+    display: flex;
+    -moz-column-gap: 2rem;
+         column-gap: 2rem;
+    color: #fff;
+}
+.header-nav-ul>li>span:hover {
+    cursor: pointer;
+}
+.dropdown-menu {
+    display: block;
+    position: absolute;
+    width: 150px;
+    top: 50px;
+    right: 0;
+    background-color: #7a9ab9;
+    text-align: center;
+    height: 80px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+    padding: 0.5rem 0;
+    z-index: 100;
+}
+.dropdown-menu.showDropdown {
+    max-height: 80px;
+    opacity: 1;
+}
+.dropdown-menu ul li {
+    margin-bottom: 0.7rem;
+}
+</style><style type="text/css">
+.top-tabl-nav {
+    padding: 2rem 0 0 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+.top-tab-ul {
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+}
+.top-tab-ul>li>a,
+.top-tab-ul>li>span {
+    text-decoration: none;
+    color: #337ab7;
+    padding: 10px 15px;
+
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+.top-tab-ul>li>a:hover,
+.top-tab-ul>li>span:hover {
+    cursor: pointer;
+    background-color: #e6e6e6;
+}
+.top-tab-ul>li>a:focus,
+.top-tab-ul>li>span:focus {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+.top-tabl-nav::after {
+    position: absolute;
+    display: block;
+    content: "";
+    top: 7.1rem;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    border-bottom: 1px solid rgb(229, 229, 229);
+}
+.dropdown-settings {
+    display: block;
+    position: absolute;
+    width: 200px;
+    top: 114px;
+    background-color: white;
+    border: 1px solid #ccc;
+    opacity: 0;
+    max-height: 0;
+    transition: max-height 0.15s ease-out, opacity 0.15s ease-out;
+    z-index: 100;
+    display: none;
+}
+.dropdown-settings.showSettingDropdown {
+    display: block;
+    max-height: 270px;
+    opacity: 1;
+}
+.dropdown-settings>ul>li>a,
+.dropdown-functions>ul>li>a {
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: 0.25rem 1rem;
+}
+.dropdown-settings ul li:hover a,
+.dropdown-settings ul li:focus a,
+.dropdown-functions ul li:hover a,
+.dropdown-functions ul li:focus a {
+    color: #fff;
+    text-decoration: none;
+    background-color: #337ab7;
+    outline: 0;
+}
+.dropdown-functions {
+    display: block;
+    position: absolute;
+    width: 200px;
+    top: 114px;
+    background-color: white;
+    border: 1px solid #ccc;
+    opacity: 0;
+    max-height: 0;
+    transition: max-height 0.15s ease-out, opacity 0.15s ease-out;
+    z-index: 100;
+    display: none;
+}
+.dropdown-functions.showFunctionDropdown {
+    display: block;
+    max-height: 125px;
+    opacity: 1;
+}
+</style><style type="text/css">/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}</style><style type="text/css">
+</style><style type="text/css">
+button {
+    padding: 0.3rem 0.5rem;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+}
+button:hover {
+    cursor: pointer;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+</style><style type="text/css">.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    box-sizing: border-box;
+}
+.form-control:focus {
+    border-color: #66afe9;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+    outline: none;
+}
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* justify-content: flex-start; */
+    width: 100%;
+    margin-bottom: 1.2rem;
+    -moz-column-gap: 2rem;
+         column-gap: 2rem;
+}
+.select-container {
+    flex-grow: 1;
+    box-sizing: border-box;
+}
+.main-table {
+    margin-top: 3rem;
+    width: 100%;
+    max-width: 100%;
+}
+.main-table>thead tr th {
+    font-weight: 600;
+    padding-bottom: 0.8rem;
+}
+.main-table>thead {
+    border-bottom: 2px solid #ccc;
+}
+.settings-entire-div {
+    padding: 2rem 0 0 1rem;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+.settings-title-div {
+    width: 100%;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+.set-label {
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: right;
+}</style><style type="text/css">
+.app-entire-div {
+    padding: 2rem 0 0 1rem;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+.app-entire-div>.form-group {
+    flex-wrap: wrap;
+}
+.app-name-div {
+    flex: 10;
+}
+.app-add-div {
+    flex: 2;
+}
+.app-check-div {
+    width: 100%;
+    margin: 2rem 0 0 0.5rem;
+    display: flex;
+    align-items: center;
+    -moz-column-gap: 1.5rem;
+         column-gap: 1.5rem;
+}
+.app-check-div>input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+}
+</style><style type="text/css">
+.login-entire-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem 0;
+}
+.login-panel-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+}
+.login-img-div {
+    max-width: 30%;
+    margin-bottom: 5rem;
+    white-space: nowrap;
+}
+.login-img-div span {
+    font-size: 30px;
+    color: #4c788c;
+}
+.login-img-div img {
+    max-width: 70%;
+    margin-right: 1rem;
+}
+.login-div {
+    background: #f6f8fc;
+    padding: 3rem 3rem 1.5rem 3rem;
+    border-radius: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    max-width: 100%;
+}
+.login-div form {
+    width: 100%;
+}
+.login-label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.input-div {
+    margin-bottom: 1.5rem;
+}
+.input-div label {
+    margin-bottom: 1rem;
+}
+.button-div {
+    display: flex;
+    justify-content: flex-end;
+}
+</style><style type="text/css">
+.config-entire-div {
+    padding: 2rem 0 0 1rem;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+.config-search-div {
+    width: 85%;
+}
+.config-btn-div {
+    width: 15%;
+    display: flex;
+    -moz-column-gap: 0.5rem;
+         column-gap: 0.5rem;
+}
+</style><style type="text/css">
+.entire-div {
+    padding: 2rem 0px 0px 1rem;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+.group-select-div,
+.config-select-div,
+.more-param-div {
+    flex: 3;
+}
+.name-search-div {
+    flex: 2;
+}
+.group-select-div select,
+.config-select-div select,
+.name-search-div input {
+    width: 100%;
+    box-sizing: border-box;
+}
+.form-btn-div {
+    flex: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.form-btn-div {
+    padding-right: 2rem;
+}
+</style><style type="text/css">
+.table-setting-panel-div {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.table-set-input-div {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.table-set-input-div.table-set-save-div {
+    justify-content: center;
+}
+.table-set-input-div>input {
+    width: 30px;
+    height: 30px;
+    margin-left: 1rem;
+}
+.table-set-label {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 6rem;
+    width: 150px;
+    text-align: right;
+}
+.table-setting-form {
+    width: 70%;
+}
+</style><style type="text/css">
+.user-panel-div {
+    width: 80%;
+    margin: 0 auto;
+}
+.user-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -moz-column-gap: 0.5rem;
+         column-gap: 0.5rem;
+}
+.user-div input {
+    width: 80%;
+}
+</style><style type="text/css">
+.default-design-panel {
+    width: 60%;
+    margin: 0 auto;
+}
+.default-label {
+    width: 30%;
+}
+.bg-url-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.bg-url-div>input {
+    width: 75%;
+}
+.save-btn-div {
+    display: flex;
+    justify-content: flex-end;
+}
+</style><style type="text/css">
+.group-panel-div {
+    width: 80%;
+    margin: 0 auto;
+}
+</style><style type="text/css">
+.lang-setting-panel {
+    width: 70%;
+    margin: 0 auto;
+}
+.lang-set-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.lang-set-div>input[type="checkbox"],
+.checkbox-div>input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+}
+.etc-title-div {
+    margin-top: 4rem;
+}
+.checkbox-div {
+    display: flex;
+    align-items: center;
+    -moz-column-gap: 0.5rem;
+         column-gap: 0.5rem;
+}
+.lang-set-label {
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: right;
+}
+.lang-set-span-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.lang-set-div>.lang-set-label {
+    margin-right: 2rem;
+}
+.lang-set-div .lang-set-label {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+.lang-set-div input[type="text"] {
+    flex: 0 0 55%;
+    max-width: 50%;
+}
+.lang-set-div select {
+    flex: 0 0 30%;
+    max-width: 30%;
+}
+#property1,
+#property2,
+#property3 {
+    margin-right: 1rem;
+}
+</style><style type="text/css">
+.hint-panel {
+    width: 40%;
+    margin: 0 auto;
+}
+.hint-btn-div {
+    display: flex;
+    justify-content: space-between;
+}
+</style><style type="text/css">
+.plugin-set-input-div {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.plugin-set-input-div>input {
+    width: 30px;
+    height: 30px;
+    margin-left: 1rem;
+}
+.plugin-set-label {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 6rem;
+    width: 150px;
+    text-align: right;
+}
+.used-plugin-panel {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.plugin-set-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.plugin-set-input-div.plugin-set-save-div {
+    justify-content: right;
+    margin-top: 2rem;
+}
+</style><style type="text/css">
+.info-panel {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.info-set-label {
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: right;
+    flex: 2;
+    margin-right: 1rem;
+}
+.info-set-input-div>input[type="checkbox"],
+.info-set-input-div>input[type="number"],
+.info-set-input-div>select {
+    flex: 2;
+    height: 30px;
+}
+.info-set-input-div>input[type="checkbox"] {
+    width: 30px;
+}
+.info-set-input-div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+</style><style type="text/css">
+.log-plugin-panel {
+    width: 80%;
+    margin: 0 auto;
+}
+.log-storage-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -moz-column-gap: 1.5rem;
+         column-gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+.log-storage-div .form-control {
+    width: 10%;
+}
+.log-set-btn-div {
+    display: flex;
+    justify-content: right;
+}
+</style><style type="text/css">
+.message-plugin-panel {
+    width: 50%;
+    margin: 0 auto;
+}
+.msg-plugin-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -moz-column-gap: 1.5rem;
+         column-gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+.msg-plugin-div .form-control {
+    width: 10%;
+}
+</style><style type="text/css">
+.detailed-info-panel {
+    width: 70%;
+    margin: 0 auto;
+}
+.detailed-info-form {
+    display: flex;
+    justify-content: center;
+    -moz-column-gap: 2rem;
+         column-gap: 2rem;
+}
+.info-form-input-div {
+    flex: 0 0 60%;
+    max-width: 60%;
+}
+</style><style type="text/css">
+.function-log-panel {
+    width: 75%;
+    margin: 0 auto;
+}
+.fuction-log-input-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    -moz-column-gap: 1rem;
+         column-gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+.function-log-btn-div {
+    display: flex;
+}
+.form-control.msg-log {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+.form-control.start-date,
+.form-control.end-date {
+    flex: 0 0 15%;
+    max-width: 15%;
+}
+.form-control.log-select-search {
+    flex: 0 0 40%;
+    max-width: 40%;
+}
+.function-log-btn-div {
+    -moz-column-gap: 0.5rem;
+         column-gap: 0.5rem;
+}
+</style><style type="text/css">
+.function-msg-panel {
+    width: 70%;
+    margin: 0 auto;
+}
+.msg-search-top-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+.form-control.search-msg-device {
+    max-width: 25%;
+    width: 20%;
+    margin-right: 25%;
+}
+.form-control.search-msg {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+.msg-search-bottom-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.form-control.select-msg {
+    flex: 0 0 20%;
+    max-width: 20%;
+}
+</style><style type="text/css">
+.function-push-msg-panel {
+    width: 50%;
+    margin: 0 auto;
+}
+.form-control.search-push-msg-device {
+    width: 20%;
+    max-width: 20%;
+}
+</style><style type="text/css">
+.audit-panel {
+    width: 60%;
+    margin: 0 auto;
+}
+.audit-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.form-control.audit-username {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+.form-control.audit-actions {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+</style></head>
+  <body>
+    <noscript>
+      <strong>We're sorry but headwind_mdm doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app" data-v-app=""><header><div class="header-entire-div"><div class="header-title-div"><h2>MDM</h2></div><nav class="header-nav"><ul class="header-nav-ul"><li><span>datetime</span></li><li><!-- 드롭다운 메뉴 --><span>username</span><div class="dropdown-menu"><ul><li>About</li><li>내 정보</li><li>로그아웃</li></ul></div></li></ul></nav></div></header><nav class="top-tabl-nav"><ul class="top-tab-ul"><!-- 라우터 링크들 --><li><a href="http://localhost:8081/" class="router-link-active router-link-exact-active" aria-current="page">장치</a></li><li><a href="http://localhost:8081/applications" class="">어플리케이션</a></li><li><a href="http://localhost:8081/configurations" class="">구성</a></li><li><a href="http://localhost:8081/files" class="">파일</a></li><li><span>설정</span><div class="dropdown-settings"><ul><li><a href="http://localhost:8081/designSettings" class="">기본 디자인</a></li><li><a href="http://localhost:8081/deviceTableSetting" class="">장치탭 테이블 설정</a></li><li><a href="http://localhost:8081/users" class="">사용자</a></li><li><a href="http://localhost:8081/groups" class="">그룹</a></li><li><a href="http://localhost:8081/langSettings" class="">언어 및 기타 설정</a></li><li><a href="http://localhost:8081/hints" class="">도움말</a></li><li><a href="http://localhost:8081/pluginSettings" class="">플러그인</a></li><li><a href="http://localhost:8081/plugin-settings-deviceinfo" class="">자세한 정보</a></li><li><a href="http://localhost:8081/plugin-settings-devicelog" class="">로그</a></li><li><a href="http://localhost:8081/plugin-settings-messaging" class="">메시지 설정</a></li><li><a href="http://localhost:8081/plugin-settings-push" class="">메시지 보내기 설정</a></li></ul></div></li><li><span>기능</span><div class="dropdown-functions"><ul><li><a href="http://localhost:8081/plugin-deviceinfo" class="">자세한 정보</a></li><li><a href="http://localhost:8081/plugin-devicelog" class="">로그</a></li><li><a href="http://localhost:8081/plugin-messaging" class="">메시지</a></li><li><a href="http://localhost:8081/plugin-push" class="">메시지 보내기</a></li><li><a href="http://localhost:8081/plugin-audit" class="">검사</a></li></ul></div></li></ul></nav><main><div class="entire-div"><div class="search-div"><form class="search-form"><div class="form-group"><div class="group-select-div"><select class="form-control"><option label="All groups" value="number:-1" selected="">All groups</option><!-- 그룹 API로 가져와서 추가 --></select></div><div class="config-select-div"><select class="form-control"><option label="All configurations" value="number:-1" selected="">All configurations </option><!-- 구성 API로 가져와서 추가 --></select></div><div class="more-param-div"><p>검색 파라미터 추가</p></div></div><div class="form-group"><div class="name-search-div"><input class="form-control" type="text" placeholder="찾고자 하는 장치 이름을 입력하세요"></div><div class="form-btn-div"><button type="button">검색</button><button type="button">장치 추가</button></div></div></form><div class="pagination-wrapper"></div><table class="main-table"><thead><tr><th><input type="checkbox"></th><th><span>상태</span></th><th><span>날짜</span></th><th><span>장치번호</span></th><th><span>전화번호</span></th><th><span>권한상태</span></th><th><span>설치상태</span></th><th><span>파일상태</span></th><th><span>구성</span></th><th><span>설명</span></th><th><span>그룹</span></th><th><span>앱 런처 버전</span></th><th><span>배터리</span></th><th><span>MDM 모드</span></th><th><span>키오스크 모드</span></th><th><span>안드로이드 버전</span></th><th><span>등록 날짜</span></th><th><span>시리얼 번호</span></th><th><span>IP 주소</span></th><th><span>Actions</span></th></tr></thead><tbody><!-- API로 장치 데이터 불러와서 v-for로 반복 --></tbody></table></div></div></main></div>
+    <!-- built files will be auto injected -->
+  
+
+</body></html>

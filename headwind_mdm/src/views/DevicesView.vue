@@ -8,13 +8,16 @@
                             <select class="form-control">
                                 <option label="All groups" value="number:-1" selected>All groups</option>
                                 <!-- 그룹 API로 가져와서 추가 -->
+                                <option v-for="(group, index) in groupList" :key="index" :value="group.id">{{ group.name }}
+                                </option>
                             </select>
                         </div>
                         <div class="config-select-div">
                             <select class="form-control">
-                                <option label="All configurations" value="number:-1" selected>All configurations
-                                </option>
+                                <option label="All configurations" value="number:-1" selected>All configurations</option>
                                 <!-- 구성 API로 가져와서 추가 -->
+                                <option v-for="(config, index) in configList" :key="index" :value="config.id">{{ config.name
+                                }}</option>
                             </select>
                         </div>
                         <div class="more-param-div">
@@ -36,7 +39,7 @@
                 </div>
 
                 <table class="main-table">
-                    <thead>
+                    <thead class="device-thead">
                         <tr>
                             <th>
                                 <input type="checkbox">
@@ -102,6 +105,34 @@
                     </thead>
                     <tbody>
                         <!-- API로 장치 데이터 불러와서 v-for로 반복 -->
+                        <tr v-for="(device, index) in deviceList" :key="index">
+                            <td>
+                                <input type="checkbox">
+                            </td>
+                            <td>{{ device.statusCode }}</td>
+                            <td>{{ device.lastUpdate }}</td>
+                            <td>{{ device.info.deviceId }}</td>
+                            <td>{{ device.serial }}</td>
+                            <td>{{ device.info.model }}</td>
+                            <!-- status 3개 수정할 것 -->
+                            <td>{{ device.statusCode }}</td>
+                            <td>{{ device.statusCode }}</td>
+                            <td>{{ device.statusCode }}</td>
+
+                            <td>{{ device.configurationId }}</td>
+                            <td>{{ device.groups.name }}</td>
+                            <td>{{ device.launcherVersion }}</td>
+                            <td>{{ device.info.batteryLevel }}</td>
+                            <td>{{ device.info.mdmMode }}</td>
+                            <td>{{ device.info.kioskMode }}</td>
+                            <td>{{ device.info.androidVersion }}</td>
+                            <td>{{ device.enrollTime }}</td>
+                            <td>{{ device.serial }}</td>
+                            <td>{{ device.publicIp }}</td>
+                            <td>
+                                <!-- 수정 아이콘들 -->
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -110,11 +141,40 @@
 </template>
 
 <script>
+import { searchGroupApi, searchConfigApi, searchDeviceApi } from '@/api/api';
 import ButtonComponent from '@/components/ButtonComponent.vue';
 export default {
     name: 'DevicesView',
+    data() {
+        return {
+            groupList: [],
+            configList: [],
+            deviceList: []
+        }
+    },
     components: {
         ButtonComponent,
+    },
+    async mounted() {
+        try {
+            const response = await searchGroupApi(this.$store.state.userToken);
+            const configResponse = await searchConfigApi(this.$store.state.userToken);
+            const deviceResponse = await searchDeviceApi(this.$store.state.userToken);
+
+            if (response.data.status === "OK" && configResponse.data.status === "OK") {
+                this.groupList = response.data.data;
+                this.configList = configResponse.data.data;
+                this.deviceList = deviceResponse.data.data.devices.items;
+
+                console.log(response.data)
+                console.log(configResponse.data)
+                console.log(this.deviceList)
+            } else {
+                console.log("error");
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 </script>
@@ -155,5 +215,9 @@ export default {
 
 .form-btn-div {
     padding-right: 2rem;
+}
+
+.device-thead {
+    font-size: 0.8rem;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <button type="button">{{ buttonText }}</button>
+    <button>{{ buttonText }}</button>
 </template>
 
 <script>

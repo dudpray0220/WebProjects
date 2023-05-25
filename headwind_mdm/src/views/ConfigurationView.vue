@@ -24,17 +24,50 @@
                         </th>
                     </tr>
                 </thead>
+                <tbody>
+                    <tr v-for="(config, index) in configList" :key="index">
+                        <td>{{ config.name }}</td>
+                        <td>{{ config.description }}</td>
+                        <td>
+                            <!-- 아이콘 추가 -->
+                            <div>
+                                <button-component :buttonText="'수정'"></button-component>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </main>
 </template>
 
 <script>
+import { searchConfigApi } from '@/api/api';
 import ButtonComponent from '@/components/ButtonComponent.vue';
 export default {
     name: 'ConfigurationView',
     components: {
         ButtonComponent
+    },
+    data() {
+        return {
+            configList: [],
+        }
+    },
+    async mounted() {
+        try {
+            const configResponse = await searchConfigApi(this.$store.state.userToken);
+
+            if (configResponse.data.status === "OK") {
+                this.configList = configResponse.data.data;
+
+                console.log(configResponse.data)
+            } else {
+                console.log("error");
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 </script>

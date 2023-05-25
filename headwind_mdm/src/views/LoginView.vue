@@ -8,7 +8,7 @@
                 </div>
 
                 <div class="login-div">
-                    <form @submit.prevent="">
+                    <form @submit.prevent="login">
                         <div class="input-div">
                             <label class="login-label" for="user-id">아이디</label>
                             <input v-model="userId" type="text" placeholder="아이디를 입력하세요" id="user-id" class="form-control">
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { loginApi } from '@/api/api';
 import ButtonComponent from '@/components/ButtonComponent.vue';
 export default {
     components: { ButtonComponent },
@@ -38,7 +39,26 @@ export default {
             userId: '',
             userPwd: '',
         }
-    }
+    },
+    methods: {
+        async login() {
+            try {
+                const response = await loginApi(this.userId, this.userPwd);
+
+                if (response.data) {
+                    this.$store.state.userToken = response.data.id_token;
+                    this.$store.state.isLogin = true;
+                    console.log(this.$store.state.userToken);
+                    this.$router.push('/'); // 메인페이지로 이동
+                } else {
+                    console.log("failed")
+                }
+            } catch (error) {
+                console.log(error);
+                console.log("Login failed: API request error");
+            }
+        }
+    },
 }
 </script>
 
